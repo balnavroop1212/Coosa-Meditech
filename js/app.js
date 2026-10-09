@@ -124,7 +124,8 @@
         ".section-header, .about-story-grid, .about-platforms, .about-trust-panel, " +
         ".about-leadership, .partner-strap, .achievement-highlight, .achievement-pillars, " +
         ".achievement-ribbon, .rnd-value-grid, .products-grid, .workflow-stepper-nav, " +
-        ".workflow-stage-display, .evidence-table-wrap, .pipeline-grid, .demo-layout, .site-footer"
+        ".workflow-stage-display, .news-grid, .pipeline-grid, " +
+        ".contact-layout, .site-footer"
       ));
       this.revealElements = [];
       this.init();
@@ -172,6 +173,7 @@
       this.stagePills = document.getElementById("workflowStagePills");
       this.hudValue = document.getElementById("workflowHudValue");
       this.hudSub = document.getElementById("workflowHudSub");
+      this.stageDisplay = document.getElementById("workflowStageDisplay");
 
       this.workflowData = {
         1: {
@@ -247,6 +249,10 @@
         b.classList.toggle("active", isActive);
         b.setAttribute("aria-selected", isActive ? "true" : "false");
       });
+
+      if (this.stageDisplay) {
+        this.stageDisplay.setAttribute("data-step", String(stepNum));
+      }
 
       if (this.stageTag) this.stageTag.textContent = data.tag;
       if (this.stageHeading) this.stageHeading.textContent = data.heading;
@@ -398,6 +404,7 @@
       this.storageKey = "coosa_lead_draft";
       this.currentStep = 1;
       this.successBanner = document.getElementById("formSuccessMessage");
+      this.progressLine = document.querySelector(".progress-line span");
 
       this.init();
     }
@@ -502,6 +509,10 @@
         marker.classList.toggle("active", markerStep === stepNumber);
         marker.classList.toggle("completed", markerStep < stepNumber);
       });
+
+      if (this.progressLine) {
+        this.progressLine.style.width = `${((stepNumber - 1) / 2) * 100}%`;
+      }
     }
 
     saveToStorage() {
