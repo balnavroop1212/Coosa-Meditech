@@ -78,6 +78,8 @@
   --status-success: var(--photon-emerald);
   --status-warning: var(--photon-amber);
   --status-alert: #dc2626;
+  /* --- 8. PROCEDURAL OPTICAL GROUND-GLASS NOISE TOKEN (Stage 4) --- */
+  --optical-noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
 }
 
 /* Global High-Contrast WCAG 2.1 AA Accessible Focus-Visible Ring */
@@ -1632,53 +1634,136 @@ h1, h2, h3, .hero-title, .section-title, .chapter-title {
   background: #ffffff;
 }
 
-/* ========================================================================
-   COOSA CINEMATIC SCROLLYTELLING STAGE
-   Full-bleed sticky narrative scaffold for the R&D journey.
-   ======================================================================== */
+/* ==========================================================================
+   CINEMATIC POLAR TRANSITION BAFFLES (STAGE 4)
+   Eliminates Dark-to-Light Flashbangs & sRGB Mid-Tone Mud
+   Multi-stop cubic-eased alpha curves model human pupil dilation.
+   ========================================================================== */
+
+/* --- 1. HERO EXIT BOUNDARY BAFFLE (Dark Hero -> Light Trust Bar) --- */
+.hero-boundary-baffle {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  margin-top: -140px;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 7, 12, 0) 0%,
+    rgba(4, 7, 12, 0.08) 8%,
+    rgba(8, 18, 30, 0.28) 24%,
+    rgba(20, 48, 70, 0.55) 48%,
+    rgba(144, 224, 239, 0.25) 74%,
+    rgba(248, 250, 252, 0.88) 90%,
+    var(--clinical-white) 100%
+  );
+}
+
+.hero-boundary-baffle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--optical-noise-pattern);
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --- 2. STORY SCROLL TRACK: Entrance + Exit Polar Baffles --- */
 .story-scroll-track {
   position: relative;
   width: 100%;
   height: 450vh;
   overflow: clip;
-  background: #060b13;
+  background-color: var(--obsidian-base);
 }
 
+/* Shared base for both pseudo-elements */
 .story-scroll-track::before,
 .story-scroll-track::after {
-  position: absolute;
-  right: 0;
-  left: 0;
-  z-index: 10;
-  height: 220px;
   content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Top Entrance: Clinical White -> Deep Obsidian (7-stop cubic) */
+.story-scroll-track::before {
+  top: 0;
+  height: 260px;
+  background:
+    radial-gradient(
+      ellipse 65% 45% at 50% 100%,
+      rgba(0, 242, 254, 0.12) 0%,
+      rgba(0, 242, 254, 0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      var(--clinical-white) 0%,
+      rgba(248, 250, 252, 0.94) 8%,
+      rgba(202, 240, 248, 0.65) 24%,
+      rgba(0, 119, 182, 0.35) 48%,
+      rgba(7, 14, 23, 0.82) 74%,
+      rgba(4, 7, 12, 0.96) 90%,
+      var(--obsidian-base) 100%
+    );
+}
+
+/* Bottom Exit: Deep Obsidian -> Clinical White (7-stop cubic) */
+.story-scroll-track::after {
+  bottom: 0;
+  height: 280px;
+  background:
+    radial-gradient(
+      ellipse 65% 45% at 50% 0%,
+      rgba(0, 242, 254, 0.10) 0%,
+      rgba(0, 242, 254, 0) 70%
+    ),
+    linear-gradient(
+      0deg,
+      var(--clinical-white) 0%,
+      rgba(248, 250, 252, 0.95) 8%,
+      rgba(202, 240, 248, 0.55) 24%,
+      rgba(0, 54, 87, 0.45) 48%,
+      rgba(7, 14, 23, 0.85) 74%,
+      rgba(4, 7, 12, 0.97) 90%,
+      var(--obsidian-base) 100%
+    );
+}
+
+/* --- 3. PRE-FOOTER POLAR BAFFLE (Contact Section -> Obsidian Footer) --- */
+.footer-polar-baffle {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--clinical-white) 0%,
+    rgba(241, 245, 249, 0.92) 20%,
+    rgba(15, 25, 45, 0.72) 65%,
+    var(--obsidian-base) 100%
+  );
+}
+
+.footer-polar-baffle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--optical-noise-pattern);
+  mix-blend-mode: overlay;
+  opacity: 0.4;
   pointer-events: none;
 }
 
-.story-scroll-track::before {
-  top: 0;
-  background: linear-gradient(
-    180deg,
-    #e8f8fa 0%,
-    rgba(232, 248, 250, 0.94) 20%,
-    rgba(180, 235, 245, 0.65) 45%,
-    rgba(0, 54, 87, 0.45) 70%,
-    rgba(6, 11, 19, 0.85) 88%,
-    #060b13 100%
-  );
-}
-
-.story-scroll-track::after {
-  bottom: 0;
-  background: linear-gradient(
-    0deg,
-    #f4fbfc 0%,
-    rgba(244, 251, 252, 0.94) 20%,
-    rgba(202, 240, 248, 0.65) 45%,
-    rgba(0, 54, 87, 0.45) 70%,
-    rgba(6, 11, 19, 0.85) 88%,
-    #060b13 100%
-  );
+/* High-DPI/Ultrawide: Extend transition distances */
+@media (min-width: 1920px) {
+  .story-scroll-track::before { height: 340px; }
+  .story-scroll-track::after  { height: 360px; }
+  .hero-boundary-baffle       { height: 180px; margin-top: -180px; }
 }
 
 .story-sticky-viewport {
@@ -4440,18 +4525,17 @@ select:focus {
 }
 
 /* ==========================================================================
-   ENTERPRISE FOOTER (GROUNDED IN BRIGHT TEAL)
+   OBSIDIAN ENTERPRISE FOOTER (STAGE 4 — Grounded in Deep Surgical Black)
    ========================================================================== */
 
 .site-footer {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 8% 10%, rgba(0, 242, 254, 0.14), transparent 28%),
-    linear-gradient(135deg, #00384f 0%, #005684 55%, var(--color-teal) 100%);
-  border-top: 3px solid var(--color-turquoise);
+  background-color: var(--obsidian-base);
+  border-top: 1px solid rgba(0, 242, 254, 0.14);
   padding: 4.5rem 0 0;
-  color: var(--text-inverse);
+  color: var(--text-inverse-muted);
+  z-index: 2;
 }
 
 .footer-layout {
