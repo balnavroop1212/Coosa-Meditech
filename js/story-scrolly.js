@@ -177,5 +177,40 @@
       resizeTimeout = window.setTimeout(scheduleUpdate, 66);
     }, { passive: true });
     scheduleUpdate();
+    initMobileHudDrawer();
   });
+
+  // Mobile Telemetry Bottom Drawer Controller
+  function initMobileHudDrawer() {
+    const hud = document.getElementById("storyHud");
+    const toggleBtn = document.getElementById("hudDrawerToggle");
+    const hintText = document.getElementById("hudDrawerHint");
+
+    if (!hud || !toggleBtn) return;
+
+    let isExpanded = false;
+
+    const toggleDrawer = (e) => {
+      e.stopPropagation();
+      isExpanded = !isExpanded;
+      hud.classList.toggle("is-expanded", isExpanded);
+
+      if (hintText) {
+        hintText.textContent = isExpanded 
+          ? "COLLAPSE TELEMETRY // ✕" 
+          : "TAP FOR LIVE OR TELEMETRY // ▲";
+      }
+    };
+
+    toggleBtn.addEventListener("click", toggleDrawer);
+
+    // Close drawer when touching outside on the scrollytelling canvas
+    document.addEventListener("touchstart", (e) => {
+      if (isExpanded && !hud.contains(e.target)) {
+        isExpanded = false;
+        hud.classList.remove("is-expanded");
+        if (hintText) hintText.textContent = "TAP FOR LIVE OR TELEMETRY // ▲";
+      }
+    }, { passive: true });
+  }
 })();

@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.coosa.in;" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.coosa.in;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="theme-color" content="#00283e" />
   <title>Coosa Technologies | Bio-Electronic Precision Oncology Diagnostics</title>
-  <meta name="description" content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
+  <meta name="description"
+    content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
 
   <!-- Open Graph / Institutional Social Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://coosa.in/" />
   <meta property="og:title" content="Coosa Technologies | Bio-Electronic Precision Oncology Diagnostics" />
-  <meta property="og:description" content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
+  <meta property="og:description"
+    content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
   <meta property="og:image" content="assets/images/coosa-logo.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Coosa Technologies | Bio-Electronic Precision Oncology Diagnostics" />
-  <meta name="twitter:description" content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
+  <meta name="twitter:description"
+    content="Next-generation intraoperative cancer margin assessment and ultrasound-guided tissue stratification engineered with real-time bio-electronic metabolic sensing." />
   <meta name="twitter:image" content="assets/images/coosa-logo.png" />
 
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
-  <!-- IntersectionObserver Scroll Sentinel (1px, zero layout cost) -->
-  <div id="headerScrollSentinel" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;" aria-hidden="true"></div>
+  <!-- Insert immediately after opening <body> tag -->
+  <div id="headerScrollSentinel"
+    style="position: absolute; top: 0; left: 0; width: 1px; height: 32px; pointer-events: none;" aria-hidden="true">
+  </div>
 
-  <!-- =================================================================
-       1. STICKY ENTERPRISE HEADER
-       ================================================================= -->
+  <!-- Sticky Enterprise Header -->
   <header class="site-header" id="siteHeader" role="banner">
-    <!-- Top Regulatory Disclosure Bar — collapses out on scroll via JS -->
-    <div class="header-regulatory-bar" id="headerRegulatoryBar" role="note" aria-label="Clinical Regulatory Notice">
-      <div class="container header-regulatory-inner">
-        <span class="compliance-pulse-dot" aria-hidden="true"></span>
-        <span class="compliance-text">CAUTION: Investigational Medical Device. Limited by Law to Investigational Evaluation.</span>
-        <span class="compliance-divider" aria-hidden="true">&bull;</span>
-        <span class="compliance-subtext">ISO 13485 Quality Management Track &bull; Granted US Patents</span>
-      </div>
-    </div>
-
-    <!-- Primary Nav Bar -->
     <div class="header-container">
       <a href="#home" class="brand-identity" aria-label="Coosa Technologies Home">
-        <img 
-          src="assets/images/coosa-logo.png" 
-          alt="Coosa Technologies Logo" 
-          class="brand-logo-img"
-        />
+        <img src="assets/images/coosa-logo.png" alt="Coosa Technologies Logo" class="brand-logo-img" />
       </a>
 
       <nav class="main-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
           <li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
           <li><a href="#achievements" class="nav-link" data-target="achievements">Achievements</a></li>
-          <li><a href="#research-development" class="nav-link" data-target="research-development">Research &amp; Development</a></li>
+          <li><a href="#research-development" class="nav-link" data-target="research-development">Research &amp;
+              Development</a></li>
           <li class="nav-dropdown">
             <a href="#products" class="nav-link" data-target="products">Products</a>
             <ul class="dropdown-menu">
@@ -78,23 +70,8 @@
           <li><a href="#news" class="nav-link" data-target="news">Latest News</a></li>
           <li><a href="#about-us" class="nav-link" data-target="about-us">About Us</a></li>
           <li><a href="#contact" class="nav-link" data-target="contact">Contact Us</a></li>
-
-          <!-- Inline Compliance Pill — revealed by JS on scroll, hidden by default -->
-          <li class="nav-compliance-pill-item" id="navCompliancePillItem" aria-hidden="true">
-            <span class="nav-compliance-pill">
-              <span class="compliance-pulse-dot" aria-hidden="true"></span>
-              <span>Investigational Device</span>
-              <span class="compliance-divider" aria-hidden="true">&bull;</span>
-              <span>ISO&nbsp;13485</span>
-            </span>
-          </li>
         </ul>
       </nav>
-
-      <!-- Institutional CTA -->
-      <a href="#contact" class="header-cta-btn" data-target="contact" aria-label="Request clinical access">
-        Request Access
-      </a>
     </div>
   </header>
 
@@ -103,6 +80,7 @@
          2. CINEMATIC HERO SECTION
          ================================================================= -->
     <section id="home" class="section hero-section" data-section="home">
+      <span id="hero" class="scroll-target-anchor" aria-hidden="true"></span>
       <div class="hero-bg-overlay" aria-hidden="true"></div>
       <div class="container hero-layout">
         <div class="hero-content">
@@ -110,10 +88,13 @@
             <span>BIO-ELECTRONIC ONCOLOGY</span>
           </div>
           <h1 class="hero-title">
-            Engineered to Minimize Re-Excision in Breast Oncology: From Days of Waiting to Real-Time Intraoperative Decision Support.
+            Engineered to Minimize Re-Excision in Breast Oncology: From Days of Waiting to Real-Time Intraoperative
+            Decision Support.
           </h1>
           <p class="hero-description">
-            When pathology reports return days after surgery, patients can face the emotional and clinical trauma of a second operation. Powered by proprietary ROS bio-electronic detection, Coosa Technologies equips surgeons with real-time intraoperative margin information before the wound is closed.
+            When pathology reports return days after surgery, patients can face the emotional and clinical trauma of a
+            second operation. Powered by proprietary ROS bio-electronic detection, Coosa Technologies equips surgeons
+            with real-time intraoperative margin information before the wound is closed.
           </p>
           <div class="hero-actions">
             <a href="#products" class="btn btn-primary">Explore Platform Systems</a>
@@ -180,7 +161,8 @@
             <span class="trust-number">TARGETED</span>
             <span class="trust-caption">Specificity: MWCNT Sensing</span>
           </div>
-          <div class="trust-item" tabindex="0" aria-label="Intraoperative clearance that helps mitigate secondary re-excisions">
+          <div class="trust-item" tabindex="0"
+            aria-label="Intraoperative clearance that helps mitigate secondary re-excisions">
             <span class="trust-number">CLEARANCE</span>
             <span class="trust-caption">Intraoperative Clearance: Mitigating Secondary Re-Excisions</span>
           </div>
@@ -209,7 +191,8 @@
           <span class="section-subtitle">Honors &amp; Validation</span>
           <h2 class="section-title">Recognized for Pioneering Diagnostic Innovation in Surgical Oncology</h2>
           <p class="section-intro">
-            Coosa Technologies brings together deep-tech innovation, validated clinical performance, and global intellectual property standards to move critical surgical decisions closer to the point of care.
+            Coosa Technologies brings together deep-tech innovation, validated clinical performance, and global
+            intellectual property standards to move critical surgical decisions closer to the point of care.
           </p>
         </div>
 
@@ -217,11 +200,13 @@
           <div class="achievement-highlight-copy">
             <span class="achievement-kicker">PROVEN IMPACT AT A GLANCE</span>
             <h3>Making intraoperative decision support more measurable.</h3>
-            <p>Our progress is measured through clinical performance, responsible engineering, and the institutions and standards that support adoption.</p>
+            <p>Our progress is measured through clinical performance, responsible engineering, and the institutions and
+              standards that support adoption.</p>
           </div>
           <div class="achievement-stat-grid">
             <div class="achievement-stat"><strong>ACTIVE</strong><span>Hospital trial programs</span></div>
-            <div class="achievement-stat"><strong>REAL-TIME</strong><span>Intraoperative molecular telemetry</span></div>
+            <div class="achievement-stat"><strong>REAL-TIME</strong><span>Intraoperative molecular telemetry</span>
+            </div>
             <div class="achievement-stat"><strong>PRESERVED</strong><span>Specimen architecture by design</span></div>
             <div class="achievement-stat"><strong>7</strong><span>Device architectures in the pipeline</span></div>
           </div>
@@ -231,7 +216,8 @@
           <article class="achievement-pillar">
             <span class="achievement-index">01</span>
             <h3>National Recognition</h3>
-            <p>Coosa has been showcased as a deep-tech medical engineering innovator at Startup Mahakumbh, Bharat Mandapam, New Delhi.</p>
+            <p>Coosa has been showcased as a deep-tech medical engineering innovator at Startup Mahakumbh, Bharat
+              Mandapam, New Delhi.</p>
             <ul>
               <li>Startup Mahakumbh Innovator</li>
               <li>BIRAC bio-innovation ecosystem alignment</li>
@@ -241,7 +227,8 @@
           <article class="achievement-pillar">
             <span class="achievement-index">02</span>
             <h3>Clinical Milestones</h3>
-            <p>Real-time molecular discrimination supports margin evaluation and sentinel lymph-node assessment during surgery.</p>
+            <p>Real-time molecular discrimination supports margin evaluation and sentinel lymph-node assessment during
+              surgery.</p>
             <ul>
               <li>Real-time margin and nodal interrogation</li>
               <li>Metabolic signal discrimination under evaluation</li>
@@ -251,7 +238,8 @@
           <article class="achievement-pillar">
             <span class="achievement-index">03</span>
             <h3>IP &amp; Quality Standards</h3>
-            <p>Our sensor architecture is built around protected bio-electronic innovation and clinical-grade quality systems.</p>
+            <p>Our sensor architecture is built around protected bio-electronic innovation and clinical-grade quality
+              systems.</p>
             <ul>
               <li>Granted US patents and MWCNT sensor IP</li>
               <li>Quality management system aligned with ISO 13485 track</li>
@@ -261,7 +249,8 @@
           <article class="achievement-pillar">
             <span class="achievement-index">04</span>
             <h3>Commercial Readiness</h3>
-            <p>A growing hospital-facing supply network supports dependable delivery of instruments and sterile consumables.</p>
+            <p>A growing hospital-facing supply network supports dependable delivery of instruments and sterile
+              consumables.</p>
             <ul>
               <li>Authorized partner: Aadvik Hospicare</li>
               <li>Institutional distribution network</li>
@@ -276,7 +265,8 @@
             <strong><span aria-hidden="true">✦</span> Startup Mahakumbh <small>Innovator showcase</small></strong>
             <strong><span aria-hidden="true">◈</span> BIRAC Ecosystem <small>Bio-innovation network</small></strong>
             <strong><span aria-hidden="true">✓</span> ISO 13485 <small>Quality-system track</small></strong>
-            <strong><span aria-hidden="true">◇</span> CE Framework <small>Technical documentation alignment</small></strong>
+            <strong><span aria-hidden="true">◇</span> CE Framework <small>Technical documentation
+                alignment</small></strong>
             <strong><span aria-hidden="true">⌁</span> US Patents <small>Protected architecture</small></strong>
             <strong><span aria-hidden="true">◎</span> DPIIT / MCA <small>Registered venture</small></strong>
           </div>
@@ -295,7 +285,14 @@
       <div class="story-sticky-viewport">
         <canvas id="story-canvas" aria-label="Animated bio-electronic sensing journey"></canvas>
         <div class="story-vignette-overlay"></div>
-        <aside class="story-hud-panel" id="storyHud" aria-label="Live Surgical Telemetry" role="region">
+        <aside class="story-hud-panel hud-card" id="storyHud" aria-label="Live Surgical Telemetry" role="region">
+          <!-- Mobile Bottom Drawer Toggle Handle -->
+          <button id="hudDrawerToggle" class="hud-drawer-handle" type="button"
+            aria-label="Toggle Surgical Telemetry Drawer">
+            <span class="hud-drawer-bar"></span>
+            <span class="hud-drawer-hint" id="hudDrawerHint">TAP FOR LIVE OR TELEMETRY</span>
+          </button>
+
           <div class="hud-top-bar">
             <div class="hud-indicator-group">
               <span class="hud-beacon" id="hudBeacon"></span>
@@ -305,15 +302,16 @@
           </div>
 
           <!-- Surgical Oscilloscope Sparkline -->
-          <div class="hud-oscilloscope-container" aria-hidden="true">
+          <div class="hud-oscilloscope-container hud-oscilloscope-wrapper" aria-hidden="true">
             <div class="hud-oscilloscope-header">
               <span class="hud-scope-title">CATALYTIC ROS FLUX (i-t WAVEFORM)</span>
               <span class="hud-scope-rate" id="hudScopeRate">14.2 kS/s · ACTIVE</span>
             </div>
-            <canvas id="hudOscilloscopeCanvas" width="300" height="42" class="hud-oscilloscope-canvas"></canvas>
+            <canvas id="hudOscilloscopeCanvas" width="300" height="42"
+              class="hud-oscilloscope-canvas hud-scope-canvas"></canvas>
           </div>
 
-          <div class="hud-readout-grid">
+          <div class="hud-readout-grid hud-telemetry-body">
             <div class="hud-readout-cell">
               <span class="hud-cell-label">Sampling depth</span>
               <div class="hud-value-row">
@@ -346,22 +344,26 @@
           <article class="story-chapter active" id="chapter-1">
             <span class="chapter-badge badge-cyan">Phase 01 · Macro</span>
             <h2 class="chapter-title">A Single Contact</h2>
-            <p class="chapter-lead">The point where surgical oncology meets cellular biophysics. The BCD probe makes non-destructive contact with the surgical cavity bed.</p>
+            <p class="chapter-lead">The point where surgical oncology meets cellular biophysics. The BCD probe makes
+              non-destructive contact with the surgical cavity bed.</p>
           </article>
           <article class="story-chapter" id="chapter-2">
             <span class="chapter-badge badge-amber">Phase 02 · Micro</span>
             <h2 class="chapter-title">The Metabolic Frontier</h2>
-            <p class="chapter-lead">Diving past the calibrated 2.1 mm threshold. Neoplastic cells excrete elevated Reactive Oxygen Species (ROS) and H₂O₂ into the extracellular space.</p>
+            <p class="chapter-lead">Diving past the calibrated 2.1 mm threshold. Neoplastic cells excrete elevated
+              Reactive Oxygen Species (ROS) and H₂O₂ into the extracellular space.</p>
           </article>
           <article class="story-chapter" id="chapter-3">
             <span class="chapter-badge badge-cyan">Phase 03 · Nano</span>
             <h2 class="chapter-title">Catalytic Telemetry</h2>
-            <p class="chapter-lead">MWCNT micro-sensor arrays capture radical gradients, converting biochemical activity into real-time electrical telemetry in under 15 seconds.</p>
+            <p class="chapter-lead">MWCNT micro-sensor arrays capture radical gradients, converting biochemical activity
+              into real-time electrical telemetry in under 15 seconds.</p>
           </article>
           <article class="story-chapter" id="chapter-4">
             <span class="chapter-badge badge-emerald">Phase 04 · Return</span>
             <h2 class="chapter-title">Clean Margin Verification</h2>
-            <p class="chapter-lead">Actionable intraoperative guidance before wound closure—preserving tissue architecture for gold-standard FFPE pathology.</p>
+            <p class="chapter-lead">Actionable intraoperative guidance before wound closure—preserving tissue
+              architecture for gold-standard FFPE pathology.</p>
           </article>
         </div>
         <div class="story-progress-indicator" aria-hidden="true">
@@ -370,10 +372,18 @@
       </div>
       <div class="container">
         <div class="rnd-value-grid">
-          <div><span class="rnd-value-label">SURGICAL ONCOLOGY</span><strong>Faster margin decisions</strong><p>Intraoperative sensing supports cavity and nodal assessment before closure.</p></div>
-          <div><span class="rnd-value-label">DIAGNOSTIC RADIOLOGY</span><strong>Clearer lesion stratification</strong><p>Probe-based scoring complements ultrasound guidance for ambiguous lesions.</p></div>
-          <div><span class="rnd-value-label">PATHOLOGY &amp; LABS</span><strong>Preserved specimens</strong><p>Rapid triage leaves tissue architecture available for definitive pathology.</p></div>
-          <div><span class="rnd-value-label">HOSPITAL OPERATIONS</span><strong>More predictable workflows</strong><p>Point-of-care information can support OR scheduling and reduce avoidable delays.</p></div>
+          <div><span class="rnd-value-label">SURGICAL ONCOLOGY</span><strong>Faster margin decisions</strong>
+            <p>Intraoperative sensing supports cavity and nodal assessment before closure.</p>
+          </div>
+          <div><span class="rnd-value-label">DIAGNOSTIC RADIOLOGY</span><strong>Clearer lesion stratification</strong>
+            <p>Probe-based scoring complements ultrasound guidance for ambiguous lesions.</p>
+          </div>
+          <div><span class="rnd-value-label">PATHOLOGY &amp; LABS</span><strong>Preserved specimens</strong>
+            <p>Rapid triage leaves tissue architecture available for definitive pathology.</p>
+          </div>
+          <div><span class="rnd-value-label">HOSPITAL OPERATIONS</span><strong>More predictable workflows</strong>
+            <p>Point-of-care information can support OR scheduling and reduce avoidable delays.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -382,12 +392,14 @@
          7. FLAGSHIP CLINICAL PLATFORMS
          ================================================================= -->
     <section id="products" class="section products-section" data-section="products">
+      <span id="specifications" class="scroll-target-anchor" aria-hidden="true"></span>
       <div class="container">
         <div class="section-header">
           <span class="section-subtitle">Clinical Oncology Suite</span>
           <h2 class="section-title">Flagship Diagnostic Platforms</h2>
           <p class="section-intro">
-            Two bio-electronic platforms spanning the breast cancer pathway—from pre-operative lesion stratification to intraoperative margin and lymph-node assessment.
+            Two bio-electronic platforms spanning the breast cancer pathway—from pre-operative lesion stratification to
+            intraoperative margin and lymph-node assessment.
           </p>
         </div>
 
@@ -415,7 +427,10 @@
           <!-- Platform 1: BDS -->
           <article class="product-card">
             <div class="product-media-preview">
-              <img src="assets/images/bds.webp" alt="BIRADx System (BDS) hardware console" class="device-photo" />
+              <div class="hardware-staging-plane">
+                <img src="assets/images/bds.webp" alt="Coosa BDS Ultrasound Needle Stratification Guide"
+                  class="product-device-img" width="340" height="220" loading="lazy" />
+              </div>
               <span class="device-tag">ULTRASOUND BIOPSY GUIDANCE</span>
             </div>
             <div class="product-card-body">
@@ -427,7 +442,9 @@
               </div>
               <p class="product-tagline">Real-Time Ultrasound Biopsy Stratification</p>
               <p class="product-desc">
-                Under direct ultrasound guidance, BDS differentiates ambiguous BI-RADS 3 lesions from high-risk pathology before surgical incision, helping clinicians target the most informative tissue in dense fibroglandular breasts.
+                Under direct ultrasound guidance, BDS differentiates ambiguous BI-RADS 3 lesions from high-risk
+                pathology before surgical incision, helping clinicians target the most informative tissue in dense
+                fibroglandular breasts.
               </p>
               <div class="product-metrics" aria-label="BDS clinical performance">
                 <div><strong>REAL-TIME</strong><span>Impedance profiling</span></div>
@@ -449,18 +466,23 @@
                   </div>
                   <div>
                     <h4>Core capability</h4>
-                    <p>Bio-electronic impedance profiling under ultrasound needle guidance, designed to preserve the tissue for standard pathology.</p>
+                    <p>Bio-electronic impedance profiling under ultrasound needle guidance, designed to preserve the
+                      tissue for standard pathology.</p>
                   </div>
                 </div>
               </details>
-              <button type="button" class="btn btn-primary btn-inspect" data-modal="bds">Inspect BDS Data Sheet &rarr;</button>
+              <button type="button" class="btn btn-primary btn-inspect" data-modal="bds">Inspect BDS Data Sheet
+                &rarr;</button>
             </div>
           </article>
 
           <!-- Platform 2: BCD -->
           <article class="product-card featured-product">
             <div class="product-media-preview">
-              <img src="assets/images/bcd.webp" alt="Breast Cancer Detector (BCD) intraoperative probe" class="device-photo" />
+              <div class="hardware-staging-plane">
+                <img src="assets/images/bcd.webp" alt="Coosa BCD Intraoperative Margin Assessment Probe"
+                  class="product-device-img" width="340" height="220" loading="lazy" />
+              </div>
               <span class="device-tag">INTRAOPERATIVE SURGICAL SUITE</span>
             </div>
             <div class="product-card-body">
@@ -472,7 +494,9 @@
               </div>
               <p class="product-tagline">Real-Time Margin &amp; Lymph Node Assessment</p>
               <p class="product-desc">
-                BCD is used inside lumpectomy cavities and on regional axillary lymph nodes during breast-conserving surgery. Its catalytic array reads metabolic ROS and H₂O₂ activity in under 15 seconds while preserving specimen architecture for pathology.
+                BCD is used inside lumpectomy cavities and on regional axillary lymph nodes during breast-conserving
+                surgery. Its catalytic array reads metabolic ROS and H₂O₂ activity in under 15 seconds while preserving
+                specimen architecture for pathology.
               </p>
               <div class="product-metrics" aria-label="BCD clinical performance">
                 <div><strong>ROS</strong><span>Metabolic signal readout</span></div>
@@ -494,11 +518,13 @@
                   </div>
                   <div>
                     <h4>Core capability</h4>
-                    <p>Functionalized multi-walled carbon nanotube arrays are designed to generate a calibrated micro-amperometric readout at a 2.1 mm contact depth within a sterile workflow architecture.</p>
+                    <p>Functionalized multi-walled carbon nanotube arrays are designed to generate a calibrated
+                      micro-amperometric readout at a 2.1 mm contact depth within a sterile workflow architecture.</p>
                   </div>
                 </div>
               </details>
-              <button type="button" class="btn btn-primary btn-inspect" data-modal="bcd">Inspect BCD Data Sheet &rarr;</button>
+              <button type="button" class="btn btn-primary btn-inspect" data-modal="bcd">Inspect BCD Data Sheet
+                &rarr;</button>
             </div>
           </article>
         </div>
@@ -521,37 +547,45 @@
         <div class="news-grid news-rail" aria-label="Latest clinical research">
           <article class="news-card" id="news-1">
             <img src="assets/news/onocology.jpeg" alt="Histopathology scan" class="news-card-image" />
-            <div class="news-card-meta"><span class="item-tag tag-oncology">Oncology Insight</span><time datetime="2026-01-18">Jan 18, 2026</time></div>
+            <div class="news-card-meta"><span class="item-tag tag-oncology">Oncology Insight</span><time
+                datetime="2026-01-18">Jan 18, 2026</time></div>
             <h3>Differentiating Bilateral Fibrocystic Changes from Early Micro-Malignancies</h3>
-            <p>A clinical perspective on separating benign structural changes from early molecular signals that warrant closer diagnostic review.</p>
+            <p>A clinical perspective on separating benign structural changes from early molecular signals that warrant
+              closer diagnostic review.</p>
             <a href="#products" class="news-link">Explore diagnostic platforms &rarr;</a>
           </article>
           <article class="news-card" id="news-2">
             <img src="assets/news/thyroid.jpeg" alt="Endocrine tissue" class="news-card-image" />
-            <div class="news-card-meta"><span class="item-tag tag-endocrine">Endocrine Axis</span><time datetime="2025-11-12">Nov 12, 2025</time></div>
+            <div class="news-card-meta"><span class="item-tag tag-endocrine">Endocrine Axis</span><time
+                datetime="2025-11-12">Nov 12, 2025</time></div>
             <h3>Thyroid Dysregulation &amp; Dense Fibroglandular Tissue Profiling</h3>
-            <p>Examining how endocrine context can inform tissue characterization in radiologically dense breast tissue.</p>
+            <p>Examining how endocrine context can inform tissue characterization in radiologically dense breast tissue.
+            </p>
             <a href="#research-development" class="news-link">Read the R&amp;D approach &rarr;</a>
           </article>
           <article class="news-card" id="news-3">
             <img src="assets/news/pathology.jpeg" alt="Ultrasound sonography" class="news-card-image" />
-            <div class="news-card-meta"><span class="item-tag tag-pathology">Pathology</span><time datetime="2025-10-27">Oct 27, 2025</time></div>
+            <div class="news-card-meta"><span class="item-tag tag-pathology">Pathology</span><time
+                datetime="2025-10-27">Oct 27, 2025</time></div>
             <h3>Fibrocystic Dysplasia: Stratification via BDS Sonography</h3>
             <p>How ultrasound-guided bio-electronic profiling supports a more informed biopsy and excision pathway.</p>
             <a href="#products" class="news-link">View the BDS system &rarr;</a>
           </article>
           <article class="news-card" id="news-4">
             <img src="assets/news/bio-energetics.jpeg" alt="Metabolic cellular pathway" class="news-card-image" />
-            <div class="news-card-meta"><span class="item-tag tag-bio">Bio-Energetics</span><time datetime="2025-10-29">Oct 29, 2025</time></div>
+            <div class="news-card-meta"><span class="item-tag tag-bio">Bio-Energetics</span><time
+                datetime="2025-10-29">Oct 29, 2025</time></div>
             <h3>Hormone Shifts &amp; Extracellular Radical Release</h3>
             <p>Exploring the relationship between benign epithelial metabolism and extracellular redox activity.</p>
             <a href="#research-development" class="news-link">View the sensing journey &rarr;</a>
           </article>
           <article class="news-card" id="news-5">
             <img src="assets/news/sensor.jpeg" alt="Biochemical redox assay" class="news-card-image" />
-            <div class="news-card-meta"><span class="item-tag tag-research">Research Digest</span><time datetime="2025-11-10">Nov 10, 2025</time></div>
+            <div class="news-card-meta"><span class="item-tag tag-research">Research Digest</span><time
+                datetime="2025-11-10">Nov 10, 2025</time></div>
             <h3>Methylxanthine Intake &amp; Cellular Redox Dynamics</h3>
-            <p>A research digest on breast density, cellular redox behavior, and the signals that guide future platform development.</p>
+            <p>A research digest on breast density, cellular redox behavior, and the signals that guide future platform
+              development.</p>
             <a href="#about-us" class="news-link">Meet Coosa Meditech &rarr;</a>
           </article>
         </div>
@@ -567,7 +601,9 @@
           <span class="section-subtitle">About Coosa Meditech</span>
           <h2 class="section-title">Pioneering Bio-Electronic Precision to Reduce Diagnostic Latency in Oncology</h2>
           <p class="section-intro">
-            We engineer real-time, cellular-level diagnostic and therapeutic platforms that empower surgeons and oncologists at the point of care. By converging bio-electronic sensing, catalytic nanotechnology, and electrochemical detection, Coosa transforms surgical precision while helping preserve healthy tissue.
+            We engineer real-time, cellular-level diagnostic and therapeutic platforms that empower surgeons and
+            oncologists at the point of care. By converging bio-electronic sensing, catalytic nanotechnology, and
+            electrochemical detection, Coosa transforms surgical precision while helping preserve healthy tissue.
           </p>
         </div>
 
@@ -576,17 +612,25 @@
             <span class="about-card-kicker">THE CLINICAL BREAKTHROUGH</span>
             <h3>Redefining Margin Assessment in Breast-Conserving Surgery</h3>
             <p>
-              When pathology results arrive days after surgery, patients can face the emotional and clinical trauma of a second operation. Coosa’s Breast Cancer Detector (BCD) brings the decision into the operating room by analyzing catalytic Reactive Oxygen Species (ROS) and cellular metabolic markers with multi-wall carbon nanotube micro-sensor arrays.
+              When pathology results arrive days after surgery, patients can face the emotional and clinical trauma of a
+              second operation. Coosa’s Breast Cancer Detector (BCD) brings the decision into the operating room by
+              analyzing catalytic Reactive Oxygen Species (ROS) and cellular metabolic markers with multi-wall carbon
+              nanotube micro-sensor arrays.
             </p>
             <p>
-              The result is actionable intraoperative margin verification in seconds—before the wound is closed, and without compromising the specimen for definitive pathology.
+              The result is actionable intraoperative margin verification in seconds—before the wound is closed, and
+              without compromising the specimen for definitive pathology.
             </p>
           </article>
 
           <div class="about-impact-stack">
-            <div class="about-impact-card"><strong>TARGET: NON-DESTRUCTIVE MARGIN EVALUATION</strong><span>Calibrated 2.1 mm sampling depth engineered to preserve tissue architecture for standard FFPE histopathology.</span></div>
-            <div class="about-impact-card"><strong>ASEPTIC SURGICAL INTEGRATION</strong><span>Sterile, single-use disposable probe tips engineered for rapid turnover in surgical suites.</span></div>
-            <div class="about-impact-card"><strong>POINT-OF-CARE VELOCITY</strong><span>Telemetry readout is generated in under 15 seconds directly in the operating field.</span></div>
+            <div class="about-impact-card"><strong>TARGET: NON-DESTRUCTIVE MARGIN EVALUATION</strong><span>Calibrated
+                2.1 mm sampling depth engineered to preserve tissue architecture for standard FFPE
+                histopathology.</span></div>
+            <div class="about-impact-card"><strong>ASEPTIC SURGICAL INTEGRATION</strong><span>Sterile, single-use
+                disposable probe tips engineered for rapid turnover in surgical suites.</span></div>
+            <div class="about-impact-card"><strong>POINT-OF-CARE VELOCITY</strong><span>Telemetry readout is generated
+                in under 15 seconds directly in the operating field.</span></div>
           </div>
         </div>
 
@@ -596,47 +640,99 @@
             <h3>One Sensing Architecture. Multiple Oncology Applications.</h3>
           </div>
           <div class="about-platform-grid">
-            <div class="about-platform-card"><span>BCD</span><h4>Breast Cancer Detector</h4><p>Intraoperative ROS/H₂O₂ margin assessment.</p></div>
-            <div class="about-platform-card"><span>BDS</span><h4>BIRADx System</h4><p>Ultrasound-guided biopsy stratification.</p></div>
-            <div class="about-platform-card"><span>TND</span><h4>ThyroNode Detector</h4><p>Point-of-care thyroid nodule profiling.</p></div>
-            <div class="about-platform-card"><span>GIS</span><h4>Gastro-Intestinal Screening</h4><p>Endoscopic early-stage lesion screening.</p></div>
-            <div class="about-platform-card"><span>CXS</span><h4>Cervi-Xpectra System</h4><p>Non-invasive cervical dysplasia detection.</p></div>
-            <div class="about-platform-card"><span>CHP / EOT</span><h4>Interventional Therapy</h4><p>Cool hemostasis and electro-oncology navigation.</p></div>
+            <div class="about-platform-card"><span>BCD</span>
+              <h4>Breast Cancer Detector</h4>
+              <p>Intraoperative ROS/H₂O₂ margin assessment.</p>
+            </div>
+            <div class="about-platform-card"><span>BDS</span>
+              <h4>BIRADx System</h4>
+              <p>Ultrasound-guided biopsy stratification.</p>
+            </div>
+            <div class="about-platform-card"><span>TND</span>
+              <h4>ThyroNode Detector</h4>
+              <p>Point-of-care thyroid nodule profiling.</p>
+            </div>
+            <div class="about-platform-card"><span>GIS</span>
+              <h4>Gastro-Intestinal Screening</h4>
+              <p>Endoscopic early-stage lesion screening.</p>
+            </div>
+            <div class="about-platform-card"><span>CXS</span>
+              <h4>Cervi-Xpectra System</h4>
+              <p>Non-invasive cervical dysplasia detection.</p>
+            </div>
+            <div class="about-platform-card"><span>CHP / EOT</span>
+              <h4>Interventional Therapy</h4>
+              <p>Cool hemostasis and electro-oncology navigation.</p>
+            </div>
           </div>
         </div>
 
         <div class="about-trust-panel">
-          <div><span class="about-panel-label">ENGINEERING TRUST</span><strong>Clinical-grade design intent</strong><p>Our catalytic sensing arrays and multi-walled nano-electrode interfaces are backed by granted US patents and developed within an ISO 13485-aligned quality management track with technical documentation aligned to CE Mark frameworks.</p></div>
-          <div><span class="about-panel-label">CORPORATE IDENTITY</span><strong>CIN: U74999DL2023PTC409808</strong><p>Incorporated under the Ministry of Corporate Affairs in New Delhi and recognized as an innovator at Startup Mahakumbh.</p></div>
-          <div><span class="about-panel-label">CLINICAL DISTRIBUTION</span><strong>Aadvik Hospicare</strong><p>Authorized partner managing institutional delivery of instruments and sterile single-use probe tips across hospitals and cancer centers.</p></div>
+          <div><span class="about-panel-label">ENGINEERING TRUST</span><strong>Clinical-grade design intent</strong>
+            <p>Our catalytic sensing arrays and multi-walled nano-electrode interfaces are backed by granted US patents
+              and developed within an ISO 13485-aligned quality management track with technical documentation aligned to
+              CE Mark frameworks.</p>
+          </div>
+          <div><span class="about-panel-label">CORPORATE IDENTITY</span><strong>CIN: U74999DL2023PTC409808</strong>
+            <p>Incorporated under the Ministry of Corporate Affairs in New Delhi and recognized as an innovator at
+              Startup Mahakumbh.</p>
+          </div>
+          <div><span class="about-panel-label">CLINICAL DISTRIBUTION</span><strong>Aadvik Hospicare</strong>
+            <p>Authorized partner managing institutional delivery of instruments and sterile single-use probe tips
+              across hospitals and cancer centers.</p>
+          </div>
         </div>
 
         <div class="about-leadership">
           <div class="about-subsection-heading leadership-heading">
             <span class="section-subtitle">The People Behind the Precision</span>
             <h3>Key Team &amp; Leadership</h3>
-            <p>Bringing clinical ambition, scientific depth, and operational discipline together to move oncology decisions closer to the point of care.</p>
+            <p>Bringing clinical ambition, scientific depth, and operational discipline together to move oncology
+              decisions closer to the point of care.</p>
           </div>
           <div class="team-grid">
             <article class="team-card team-card-featured">
-              <div class="team-portrait"><img src="assets/images/ankit-khandelwal.webp" alt="Ankit Khandelwal, Chief Executive Officer"></div>
-              <div class="team-card-content"><span class="team-role">Chief Executive Officer (CEO)</span><h4>Ankit Khandelwal</h4><p>Leading Coosa’s institutional growth, clinical partnerships, and pathway from bio-electronic innovation to adoption.</p></div>
+              <div class="team-portrait"><img src="assets/images/ankit-khandelwal.webp"
+                  alt="Ankit Khandelwal, Chief Executive Officer"></div>
+              <div class="team-card-content"><span class="team-role">Chief Executive Officer (CEO)</span>
+                <h4>Ankit Khandelwal</h4>
+                <p>Leading Coosa’s institutional growth, clinical partnerships, and pathway from bio-electronic
+                  innovation to adoption.</p>
+              </div>
             </article>
             <article class="team-card">
               <div class="team-portrait"><img src="assets/images/AP.png" alt="Apurba Swain, Founder"></div>
-              <div class="team-card-content"><span class="team-role">Founder</span><h4>Apurba Swain</h4><p>Originating Coosa’s bio-electronic vision and the scientific foundation behind its oncology platforms.</p></div>
+              <div class="team-card-content"><span class="team-role">Founder</span>
+                <h4>Apurba Swain</h4>
+                <p>Originating Coosa’s bio-electronic vision and the scientific foundation behind its oncology
+                  platforms.</p>
+              </div>
             </article>
             <article class="team-card">
-              <div class="team-portrait"><img src="assets/images/RM.png" alt="Ravi Mittal, CSO and Founder Director"></div>
-              <div class="team-card-content"><span class="team-role">Founder &amp; Director | Head of Sales &amp; Marketing</span><h4>Ravi Mittal</h4><p>Connecting clinical value, institutional partnerships, and the commercial pathway for Coosa’s platforms.</p></div>
+              <div class="team-portrait"><img src="assets/images/RM.png" alt="Ravi Mittal, CSO and Founder Director">
+              </div>
+              <div class="team-card-content"><span class="team-role">Founder &amp; Director | Head of Sales &amp;
+                  Marketing</span>
+                <h4>Ravi Mittal</h4>
+                <p>Connecting clinical value, institutional partnerships, and the commercial pathway for Coosa’s
+                  platforms.</p>
+              </div>
             </article>
             <article class="team-card">
               <div class="team-portrait"><img src="assets/images/NPR.png" alt="Nupur Gupta, COO and Co-Founder"></div>
-              <div class="team-card-content"><span class="team-role">CEO Advisor</span><h4>Nupur Gupta</h4><p>Supporting strategic direction, operating discipline, and the systems required for reliable clinical deployment.</p></div>
+              <div class="team-card-content"><span class="team-role">CEO Advisor</span>
+                <h4>Nupur Gupta</h4>
+                <p>Supporting strategic direction, operating discipline, and the systems required for reliable clinical
+                  deployment.</p>
+              </div>
             </article>
             <article class="team-card">
-              <div class="team-portrait"><img src="assets/images/RS.png" alt="Ravinder Sahoo, Senior Manager Regulatory"></div>
-              <div class="team-card-content"><span class="team-role">Senior Manager (Regulatory)</span><h4>Ravinder Sahoo</h4><p>Advancing quality, documentation, and regulatory readiness for medical device adoption.</p></div>
+              <div class="team-portrait"><img src="assets/images/RS.png"
+                  alt="Ravinder Sahoo, Senior Manager Regulatory"></div>
+              <div class="team-card-content"><span class="team-role">Senior Manager (Regulatory)</span>
+                <h4>Ravinder Sahoo</h4>
+                <p>Advancing quality, documentation, and regulatory readiness for medical device adoption.</p>
+              </div>
             </article>
           </div>
         </div>
@@ -645,15 +741,22 @@
           <div class="partner-strap-copy">
             <span class="section-subtitle">Evaluation &amp; Partner Hospitals</span>
             <h3>Validated with institutions shaping the future of care.</h3>
-            <p>Coosa is actively testing and validating its technology with leading medical and research institutions in India and abroad.</p>
+            <p>Coosa is actively testing and validating its technology with leading medical and research institutions in
+              India and abroad.</p>
           </div>
           <div class="partner-logo-grid" aria-label="Evaluation and partner hospitals">
-            <div class="partner-logo-tile"><img src="assets/Partners/AIIMS.jpg" alt="AIIMS - All India Institute of Medical Sciences"><span>AIIMS</span></div>
-            <div class="partner-logo-tile"><img src="assets/Partners/Medanta.png" alt="Medanta"><span>Medanta</span></div>
-            <div class="partner-logo-tile"><img src="assets/Partners/MaxCare.jpg" alt="Max Healthcare"><span>Max Healthcare</span></div>
-            <div class="partner-logo-tile"><img src="assets/Partners/Tata.png" alt="Tata Memorial Hospital"><span>Tata Memorial</span></div>
-            <div class="partner-logo-tile"><img src="assets/Partners/apollo.png" alt="Apollo Hospitals"><span>Apollo</span></div>
-            <div class="partner-logo-tile"><img src="assets/Partners/CNCI.jpg" alt="CNCI - Chittaranjan National Cancer Institute"><span>CNCI</span></div>
+            <div class="partner-logo-tile"><img src="assets/Partners/AIIMS.jpg"
+                alt="AIIMS - All India Institute of Medical Sciences"><span>AIIMS</span></div>
+            <div class="partner-logo-tile"><img src="assets/Partners/Medanta.png" alt="Medanta"><span>Medanta</span>
+            </div>
+            <div class="partner-logo-tile"><img src="assets/Partners/MaxCare.jpg" alt="Max Healthcare"><span>Max
+                Healthcare</span></div>
+            <div class="partner-logo-tile"><img src="assets/Partners/Tata.png" alt="Tata Memorial Hospital"><span>Tata
+                Memorial</span></div>
+            <div class="partner-logo-tile"><img src="assets/Partners/apollo.png"
+                alt="Apollo Hospitals"><span>Apollo</span></div>
+            <div class="partner-logo-tile"><img src="assets/Partners/CNCI.jpg"
+                alt="CNCI - Chittaranjan National Cancer Institute"><span>CNCI</span></div>
           </div>
         </div>
       </div>
@@ -668,7 +771,8 @@
           <span class="section-subtitle">Operating Room Integration</span>
           <h2 class="section-title">Clinical Care Pathway</h2>
           <p class="section-intro">
-            Follow the diagnostic sequence from pre-operative stratification through intraoperative verification, pathology correlation, and the next generation of Coosa platforms.
+            Follow the diagnostic sequence from pre-operative stratification through intraoperative verification,
+            pathology correlation, and the next generation of Coosa platforms.
           </p>
         </div>
 
@@ -688,19 +792,24 @@
             <div class="workflow-stepper-nav continuum-stepper" role="tablist" aria-label="Surgical workflow stages">
               <button class="step-nav-btn active" data-step="1" role="tab" aria-selected="true">
                 <span class="step-num">01</span>
-                <span class="step-content"><strong>Biopsy Stratification <em>BDS System</em></strong><small>Ultrasound-guided BI-RADS 3/4 lesion profiling.</small></span>
+                <span class="step-content"><strong>Biopsy Stratification <em>BDS
+                      System</em></strong><small>Ultrasound-guided BI-RADS 3/4 lesion profiling.</small></span>
               </button>
               <button class="step-nav-btn" data-step="2" role="tab" aria-selected="false">
                 <span class="step-num">02</span>
-                <span class="step-content"><strong>Targeted Tumor Resection</strong><small>Oncoplastic excision within standard surgical protocols.</small></span>
+                <span class="step-content"><strong>Targeted Tumor Resection</strong><small>Oncoplastic excision within
+                    standard surgical protocols.</small></span>
               </button>
               <button class="step-nav-btn" data-step="3" role="tab" aria-selected="false">
                 <span class="step-num">03</span>
-                <span class="step-content"><strong>Cavity Margin Interrogation <em>BCD Probe</em></strong><small>Catalytic ROS sensing confirms margins in under 15 seconds.</small></span>
+                <span class="step-content"><strong>Cavity Margin Interrogation <em>BCD
+                      Probe</em></strong><small>Catalytic ROS sensing confirms margins in under 15
+                    seconds.</small></span>
               </button>
               <button class="step-nav-btn" data-step="4" role="tab" aria-selected="false">
                 <span class="step-num">04</span>
-                <span class="step-content"><strong>Specimen Preservation</strong><small>Designed to avoid thermal or freezing artifacts for FFPE pathology.</small></span>
+                <span class="step-content"><strong>Specimen Preservation</strong><small>Designed to avoid thermal or
+                    freezing artifacts for FFPE pathology.</small></span>
               </button>
             </div>
 
@@ -709,7 +818,10 @@
               <div class="stage-info">
                 <div class="stage-tag" id="workflowStageTag">STAGE 01 &bull; PRE-OPERATIVE RADIOLOGY</div>
                 <h3 class="stage-heading" id="workflowStageHeading">Ultrasound-Guided Tissue Stratification (BDS)</h3>
-                <p class="stage-text" id="workflowStageText">Under direct ultrasound guidance, the BIRADx fine-needle probe is advanced into ambiguous BI-RADS 3 or BI-RADS 4 fibroglandular breast lesions. Real-time bio-impedance profiling stratifies lesions prior to surgical intervention, preventing unnecessary core needle biopsies in low-risk patients.</p>
+                <p class="stage-text" id="workflowStageText">Under direct ultrasound guidance, the BIRADx fine-needle
+                  probe is advanced into ambiguous BI-RADS 3 or BI-RADS 4 fibroglandular breast lesions. Real-time
+                  bio-impedance profiling stratifies lesions prior to surgical intervention, preventing unnecessary core
+                  needle biopsies in low-risk patients.</p>
                 <div class="stage-meta-pills" id="workflowStagePills">
                   <span class="meta-pill">Modality: BDS Probe</span>
                   <span class="meta-pill">Imaging: Ultrasound Tracking</span>
@@ -736,22 +848,26 @@
             </div>
             <div class="pipeline-grid">
               <div class="pipeline-card">
-                <div class="card-top"><span class="organ-tag">Endocrinology</span><span class="phase-pill phase-proto">Prototyping</span></div>
+                <div class="card-top"><span class="organ-tag">Endocrinology</span><span
+                    class="phase-pill phase-proto">Prototyping</span></div>
                 <h4>ThyroNode (TND)</h4>
                 <p>Bio-electronic fine-needle interrogation for indeterminate thyroid nodules under sonography.</p>
               </div>
               <div class="pipeline-card">
-                <div class="card-top"><span class="organ-tag">Gynecology</span><span class="phase-pill phase-tech">Optimization</span></div>
+                <div class="card-top"><span class="organ-tag">Gynecology</span><span
+                    class="phase-pill phase-tech">Optimization</span></div>
                 <h4>Cervi-Xpectra (CXS)</h4>
                 <p>Objective spectral bio-sensing for cervical dysplasia, bypassing visual colposcopy subjectivity.</p>
               </div>
               <div class="pipeline-card">
-                <div class="card-top"><span class="organ-tag">Gastroenterology</span><span class="phase-pill phase-invitro">In-Vitro</span></div>
+                <div class="card-top"><span class="organ-tag">Gastroenterology</span><span
+                    class="phase-pill phase-invitro">In-Vitro</span></div>
                 <h4>GI Screening (GIS)</h4>
                 <p>Endoscopic probe integration for mucosal margin discrimination during direct lesion resection.</p>
               </div>
               <div class="pipeline-card">
-                <div class="card-top"><span class="organ-tag">Surgical Oncology</span><span class="phase-pill phase-preclinical">Pre-Clinical</span></div>
+                <div class="card-top"><span class="organ-tag">Surgical Oncology</span><span
+                    class="phase-pill phase-preclinical">Pre-Clinical</span></div>
                 <h4>Electro Chemo (ECT)</h4>
                 <p>Pulsed electro-permeabilization to enhance localized chemotherapeutic uptake in solid lesions.</p>
               </div>
@@ -762,133 +878,74 @@
     </section>
 
     <!-- =================================================================
-         10. INSTITUTIONAL EVALUATION & CONTACT
+         10. INSTITUTIONAL EVALUATION & TERMINAL LEAD PROVISIONING (STAGE 5)
          ================================================================= -->
-    <section id="contact" class="section demo-section" data-section="contact">
-      <div class="container">
-        <div class="contact-header">
-          <span class="section-subtitle">Clinical Access &amp; Partnerships</span>
-          <h2 class="section-title">Request an Institutional Evaluation</h2>
-          <p class="section-intro">
-            Equip surgical oncology suites and radiology departments with real-time bio-electronic precision. Complete the short form to request an on-site demonstration or technical dossier.
-          </p>
+    <section id="contact" class="section evaluation-section" data-section="contact"
+      style="padding: 5rem 1.5rem; max-width: 840px; margin: 0 auto;">
+      <div id="evaluation"></div>
+      <div class="terminal-form-card">
+        <div class="terminal-top-bar">
+          <div class="terminal-meta-cluster">
+            <span class="terminal-pulse-dot" aria-hidden="true"></span>
+            <span>SYS.PROVISIONING // OR PROTOCOL INTAKE</span>
+          </div>
+          <span class="hud-mono-tag" id="terminalProtocolId">PROTOCOL: CS-2026</span>
         </div>
 
-        <div class="contact-layout">
-          <div class="demo-card form-wizard-card">
-            <div class="form-progress-bar">
-              <div class="progress-line" aria-hidden="true"><span></span></div>
-              <div class="progress-step active" data-step="1"><span>01</span> Role</div>
-              <div class="progress-step" data-step="2"><span>02</span> Facility</div>
-              <div class="progress-step" data-step="3"><span>03</span> Contact</div>
+        <h2
+          style="font-size: 1.85rem; font-weight: 700; color: #ffffff; margin-bottom: 0.4rem; letter-spacing: -0.025em;">
+          Request Clinical Evaluation Protocol
+        </h2>
+        <p style="color: var(--text-inverse-muted); margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.55;">
+          Direct dispatch terminal for surgical oncology departments, pathology boards, and institutional review
+          committees.
+        </p>
+
+        <form id="evaluationRequestForm" novalidate>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+            <div class="form-group">
+              <label for="fullName" class="form-label">Principal Investigator</label>
+              <input type="text" id="fullName" name="fullName" class="terminal-input"
+                placeholder="Dr. S. Vance, MD, FACS" required />
             </div>
-
-            <form id="clinicalLeadForm" novalidate>
-              <div class="form-step-pane active" id="step1">
-                <h3 class="step-title">Select Your Clinical Role</h3>
-                <p class="step-subtext">This helps us tailor the demonstration protocol and clinical data package to your workflow.</p>
-                <div class="role-cards-grid">
-                  <label class="role-card">
-                    <input type="radio" name="clinicalRole" value="Surgical Oncologist" checked>
-                    <span class="role-card-content"><span class="role-icon" aria-hidden="true">OR</span><strong>Surgical Oncologist</strong><small>BCD margin and nodal clearance</small></span>
-                  </label>
-                  <label class="role-card">
-                    <input type="radio" name="clinicalRole" value="Diagnostic Radiologist">
-                    <span class="role-card-content"><span class="role-icon" aria-hidden="true">US</span><strong>Diagnostic Radiologist</strong><small>BDS ultrasound biopsy stratification</small></span>
-                  </label>
-                  <label class="role-card">
-                    <input type="radio" name="clinicalRole" value="Pathologist">
-                    <span class="role-card-content"><span class="role-icon" aria-hidden="true">LAB</span><strong>Pathologist / Lab Director</strong><small>FFPE preservation and rapid triage</small></span>
-                  </label>
-                  <label class="role-card">
-                    <input type="radio" name="clinicalRole" value="Hospital Procurement">
-                    <span class="role-card-content"><span class="role-icon" aria-hidden="true">ORG</span><strong>OR Director / Procurement</strong><small>Re-excision economics and sterile consumables</small></span>
-                  </label>
-                </div>
-                <div class="button-row"><button type="button" class="btn btn-primary next-step" data-next="2">Continue to Facility Details &rarr;</button></div>
-              </div>
-
-              <div class="form-step-pane" id="step2">
-                <h3 class="step-title">Institution &amp; Surgical Volume</h3>
-                <p class="step-subtext">Provide official hospital or cancer-center details for the clinical relations team.</p>
-                <div class="input-group">
-                  <label for="institutionName">Hospital / Cancer Center Name *</label>
-                  <input type="text" id="institutionName" name="institution" placeholder="e.g., Memorial Cancer Center / AIIMS" required />
-                  <span class="input-error-msg" id="instError">Please enter your hospital or medical center name.</span>
-                </div>
-                <div class="input-group">
-                  <label for="annualVolume">Annual Lumpectomy Procedure Volume</label>
-                  <select id="annualVolume" name="annualVolume">
-                    <option value="<100">&lt; 100 procedures / year</option>
-                    <option value="100-300">100–300 procedures / year</option>
-                    <option value="300+">300+ procedures / year</option>
-                  </select>
-                </div>
-                <div class="button-row"><button type="button" class="btn btn-secondary prev-step" data-prev="1">&larr; Back</button><button type="button" class="btn btn-primary next-step" data-next="3">Continue to Contact &rarr;</button></div>
-              </div>
-
-              <div class="form-step-pane" id="step3">
-                <h3 class="step-title">Professional Contact Details</h3>
-                <p class="step-subtext">Use an institutional email so our clinical applications team can respond securely.</p>
-                <div class="input-grid">
-                  <div class="input-group">
-                    <label for="fullName">Clinician Full Name *</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Dr. Jane Doe, MD, FACS" required />
-                    <span class="input-error-msg" id="nameError">Please enter your full name.</span>
-                  </div>
-                  <div class="input-group">
-                    <label for="workEmail">Institutional Email Address *</label>
-                    <input type="email" id="workEmail" name="email" placeholder="jdoe@hospital.org" required />
-                    <span class="input-error-msg" id="emailError">Please enter a valid hospital email address.</span>
-                  </div>
-                </div>
-                <div class="button-row"><button type="button" class="btn btn-secondary prev-step" data-prev="2">&larr; Back</button><button type="submit" class="btn btn-accent" id="submitLeadBtn">Submit Evaluation Request &rarr;</button></div>
-              </div>
-            </form>
-
-            <div id="formSuccessMessage" class="form-success-banner" style="display: none;" role="status">
-              <div class="success-banner-badge">
-                <span class="compliance-pulse-dot" aria-hidden="true"></span>
-                <span>INSTITUTIONAL DOSSIER GENERATED</span>
-              </div>
-              <h3>Evaluation Request Initialized</h3>
-              <p>Your institutional clinical profile has been registered. For enterprise hospital networks with restricted mail clients, your verified briefing dossier has been compiled below.</p>
-
-              <div class="dossier-preview-card">
-                <div class="dossier-header">
-                  <span>CONFIDENTIAL CLINICAL BRIEFING DOSSIER</span>
-                  <span id="dossierTimestamp"></span>
-                </div>
-                <pre class="dossier-pre" id="dossierContent"></pre>
-                <div class="dossier-actions">
-                  <button type="button" class="btn btn-primary" id="btnCopyDossier">
-                    <span id="copyDossierLabel">Copy Dossier to Clipboard</span>
-                  </button>
-                  <a href="#" id="manualMailtoLink" class="btn btn-secondary">Open Email Client (Optional)</a>
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Institutional Email</label>
+              <input type="email" id="email" name="email" class="terminal-input"
+                placeholder="svance@memorialoncology.org" required />
             </div>
           </div>
 
-          <aside class="contact-trust-panel">
-            <span class="trust-kicker">Institutional Clinical Relations</span>
-            <h3>Built for qualified evaluation teams.</h3>
-            <p>Connect with Coosa's clinical applications desk for platform briefings, operating-suite demonstrations, and deployment planning.</p>
-            <div class="trust-contact">
-              <span>Authorized distribution</span>
-              <strong>Aadvik Hospicare</strong>
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.25rem;">
+            <div class="form-group">
+              <label for="institution" class="form-label">Hospital / Research Network</label>
+              <input type="text" id="institution" name="institution" class="terminal-input"
+                placeholder="Surgical Oncology Division, Main Campus" required />
             </div>
-            <div class="trust-contact">
-              <span>Clinical relations</span>
-              <a href="mailto:contact@coosa.in">contact@coosa.in</a>
+            <div class="form-group">
+              <label for="departmentRole" class="form-label">Clinical Specialty</label>
+              <select id="departmentRole" name="role" class="terminal-input terminal-select">
+                <option value="Surgical Oncologist">Surgical Oncology</option>
+                <option value="Pathology Director">Pathology &amp; Histology</option>
+                <option value="Diagnostic Radiologist">Diagnostic Radiology</option>
+                <option value="Hospital Procurement">Procurement &amp; Value Committee</option>
+              </select>
             </div>
-            <div class="trust-next">
-              <strong>What happens next?</strong>
-              <p>We review your clinical profile and respond within 24 hours with the most relevant evaluation pathway.</p>
-            </div>
-            <div class="trust-location">Village Satbari · South West Delhi<br>Delhi 110074 · India</div>
-          </aside>
-        </div>
+          </div>
+
+          <div class="form-group">
+            <label for="objective" class="form-label">Investigation Objective</label>
+            <input type="text" id="objective" name="objective" class="terminal-input"
+              placeholder="Target: Non-destructive intraoperative breast cavity margin clearance" />
+          </div>
+
+          <button type="submit" class="btn-terminal-submit" style="margin-top: 1rem;">
+            <span>Dispatch Clinical Briefing Dossier</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2.5 7H11.5M11.5 7L7.5 3M11.5 7L7.5 11" stroke="currentColor" stroke-width="1.75"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </form>
       </div>
     </section>
   </main>
@@ -908,9 +965,11 @@
         <span class="footer-kicker">Bio-electronic precision oncology</span>
         <h2>Diagnostics that respect the clinical pathway.</h2>
         <p class="footer-desc">
-          Coosa Technologies develops tissue-preserving diagnostic platforms for more informed decisions before, during, and after breast-conserving surgery.
+          Coosa Technologies develops tissue-preserving diagnostic platforms for more informed decisions before, during,
+          and after breast-conserving surgery.
         </p>
-        <a class="footer-cta" href="#contact">Request an institutional evaluation <span aria-hidden="true">&rarr;</span></a>
+        <a class="footer-cta" href="#contact">Request an institutional evaluation <span
+            aria-hidden="true">&rarr;</span></a>
       </div>
 
       <div class="footer-links">
@@ -953,11 +1012,12 @@
     </div>
   </footer>
 
-  <!-- Modal Component -->
-  <div class="clinical-modal-backdrop" id="clinicalModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <!-- Product Spec-Sheet Modal (obsidian terminal chassis) -->
+  <div class="clinical-modal-backdrop" id="clinicalModal" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modalTitle">
     <div class="clinical-modal-dialog">
       <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Modal">&times;</button>
-      <div class="modal-header">
+      <div style="margin-bottom:1rem;">
         <span class="modal-badge" id="modalBadge">SYSTEM SPECIFICATION</span>
         <h3 class="modal-title" id="modalTitle">Platform Architecture</h3>
       </div>
@@ -965,8 +1025,44 @@
     </div>
   </div>
 
+  <!-- Clinical Dossier Terminal Modal -->
+  <div id="clinicalDossierModal" class="clinical-modal-backdrop" role="dialog" aria-modal="true"
+    aria-labelledby="dossierTitle" aria-hidden="true">
+    <div class="clinical-modal-content">
+      <div class="terminal-top-bar">
+        <div class="terminal-meta-cluster">
+          <span class="terminal-pulse-dot" aria-hidden="true"></span>
+          <span id="modalTimestamp">UTC SECURE LOG // TRANSMISSION PREVIEW</span>
+        </div>
+        <button id="closeDossierModal" class="terminal-close-btn" type="button"
+          aria-label="Dismiss Modal">&times;</button>
+      </div>
+
+      <div class="terminal-interior">
+        <h3 id="dossierTitle" class="terminal-title">Clinical Protocol Briefing Compiled</h3>
+        <p class="terminal-sub">
+          Cryptographically framed evaluation dossier ready for transmission. For workstations with locked client
+          environments, copy the verified manifest below:
+        </p>
+
+        <textarea id="dossierContent" class="dossier-code-view" readonly></textarea>
+
+        <div class="terminal-action-bar">
+          <a id="directMailtoBtn" href="#" class="btn-terminal-secondary">
+            Open Mail Transport
+          </a>
+          <button id="copyDossierBtn" type="button" class="btn-terminal-submit"
+            style="width: auto; padding: 0.65rem 1.4rem;">
+            Copy Manifest to Clipboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/app.js"></script>
   <script src="js/story-canvas-renderer.js"></script>
   <script src="js/story-scrolly.js"></script>
 </body>
+
 </html>

@@ -31,18 +31,12 @@
 
     syncHeaderHeight() {
       const update = () => {
-        const headerHeight = this.header.offsetHeight;
+        const headerHeight = this.header ? this.header.offsetHeight : 84;
         document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
-        const hero = document.getElementById("home");
-        if (hero) hero.style.paddingTop = `${headerHeight + 40}px`;
+        document.documentElement.style.scrollPaddingTop = `${headerHeight}px`;
       };
       update();
-      if ("ResizeObserver" in window) {
-        this.headerObserver = new ResizeObserver(update);
-        this.headerObserver.observe(this.header);
-      } else {
-        window.addEventListener("resize", update, { passive: true });
-      }
+      window.addEventListener("resize", update, { passive: true });
     }
 
     bindClickHandlers() {
@@ -380,7 +374,7 @@
       }
 
       if (this.dossierModal) {
-        const dossierClose = this.dossierModal.querySelector(".modal-close-btn, [data-close]");
+        const dossierClose = this.dossierModal.querySelector(".modal-close-btn, .terminal-close-btn, #closeDossierModal, [data-close]");
         if (dossierClose) {
           dossierClose.addEventListener("click", () => this.closeModal(this.dossierModal));
         }
@@ -391,14 +385,14 @@
         });
       }
 
-      window.addEventListener("keydown", this.handleKeyDown);
+      window.addEventListener("keydown", (e) => this.handleKeyDown(e));
     }
 
     getActiveModal() {
-      if (this.modalBackdrop && this.modalBackdrop.classList.contains("open")) {
+      if (this.modalBackdrop && (this.modalBackdrop.classList.contains("open") || this.modalBackdrop.classList.contains("is-visible"))) {
         return this.modalBackdrop;
       }
-      if (this.dossierModal && this.dossierModal.classList.contains("open")) {
+      if (this.dossierModal && (this.dossierModal.classList.contains("open") || this.dossierModal.classList.contains("is-visible"))) {
         return this.dossierModal;
       }
       return null;
@@ -465,7 +459,7 @@
     closeModal(modalEl) {
       const target = modalEl || this.modalBackdrop;
       if (target) {
-        target.classList.remove("open");
+        target.classList.remove("open", "is-visible");
         target.setAttribute("aria-hidden", "true");
       }
       document.body.style.overflow = "";
@@ -748,44 +742,181 @@
   }
 
 
-  /* ==========================================================================
-     HEADER COMPACTION ENGINE (Step 2) — Zero-Overhead IntersectionObserver
-     Replaces continuous scroll listeners with a single sentinel observation.
-     ========================================================================== */
+  // Header Sentinel Observer & Scroll Compaction Engine
   function initHeaderCompaction() {
     const header = document.getElementById("siteHeader");
     const sentinel = document.getElementById("headerScrollSentinel");
-    const compliancePill = document.getElementById("navCompliancePillItem");
 
-    if (!header || !sentinel) return;
+    if (!header) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isScrolled = !entry.isIntersecting;
-        header.classList.toggle("is-scrolled", isScrolled);
+    const updateScrolled = (isScrolled) => {
+      header.classList.toggle("is-scrolled", isScrolled);
+    };
 
-        // Sync A11y: expose pill to screen readers only when visible
-        if (compliancePill) {
-          compliancePill.setAttribute("aria-hidden", String(!isScrolled));
-        }
+    if (sentinel && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          updateScrolled(!entry.isIntersecting);
+        },
+        { threshold: 0 }
+      );
+      observer.observe(sentinel);
+    }
 
-        // Sync scroll-padding-top so anchors land below compacted header
-        const headerHeight = header.offsetHeight;
-        document.documentElement.style.setProperty(
-          "--header-height",
-          `${headerHeight}px`
-        );
-        document.documentElement.style.scrollPaddingTop = `${headerHeight}px`;
+    window.addEventListener(
+      "scroll",
+      () => {
+        updateScrolled(window.scrollY > 30);
       },
-      {
-        root: null,
-        // Fire as soon as the sentinel (at y=0) exits the viewport
-        threshold: 0,
-        rootMargin: "0px"
-      }
+      { passive: true }
     );
 
-    observer.observe(sentinel);
+    updateScrolled(window.scrollY > 30);
+  }
+
+  /* ==========================================================================
+     5. TERMINAL EVALUATION ENGINE (STAGE 5)
+     Persona-Adaptive Protocol Routing and Terminal Manifest Generator
+     ========================================================================== */
+  function initTerminalEvaluationEngine() {
+    const form = document.getElementById("evaluationRequestForm");
+    const modal = document.getElementById("clinicalDossierModal");
+    const dossierView = document.getElementById("dossierContent");
+    const timestampTag = document.getElementById("modalTimestamp");
+    const protocolIdTag = document.getElementById("terminalProtocolId");
+    const closeBtn = document.getElementById("closeDossierModal");
+    const copyBtn = document.getElementById("copyDossierBtn");
+    const mailtoBtn = document.getElementById("directMailtoBtn");
+
+    if (!form) return;
+
+    // Generate dynamic clinical session code
+    const sessionEpoch = Math.floor(Date.now() / 1000).toString().slice(-4);
+    const protocolCode = `CS-2026-${sessionEpoch}`;
+    if (protocolIdTag) protocolIdTag.textContent = `PROTOCOL: ${protocolCode}`;
+
+    let lastFocusedElement = null;
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.remove("is-visible", "open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+          lastFocusedElement.focus();
+          lastFocusedElement = null;
+        }
+      }
+    };
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const textToCopy = dossierView ? dossierView.value : "";
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(textToCopy);
+          } else if (dossierView) {
+            dossierView.select();
+            document.execCommand("copy");
+          }
+          const prevText = copyBtn.textContent;
+          copyBtn.textContent = "Manifest Copied \u2713";
+          setTimeout(() => {
+            copyBtn.textContent = prevText;
+          }, 2500);
+        } catch (_) {
+          if (dossierView) dossierView.select();
+        }
+      });
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      lastFocusedElement = document.activeElement;
+
+      const sanitize = (str) => String(str || "").replace(/[<>"'&]/g, "").trim().slice(0, 120);
+      const formData = new FormData(form);
+      const payload = {};
+      formData.forEach((val, key) => { payload[key] = sanitize(val); });
+
+      const nowUTC = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
+      if (timestampTag) timestampTag.textContent = `UTC LOG: ${nowUTC} // PROTOCOL: ${protocolCode}`;
+
+      // Persona-Adaptive Clinical Dossier Packaging
+      let clinicalFocus = "STANDARD INTRAOPERATIVE MARGIN PROTOCOL";
+      let complianceRef = "FDA 21 CFR 812.7 / ISO 13485 INVESTIGATIONAL MATRIX";
+
+      switch (payload.role) {
+        case "Surgical Oncologist":
+          clinicalFocus = "2.1mm CAVITY MARGIN INTERROGATION & NON-DESTRUCTIVE TISSUE PRESERVATION";
+          break;
+        case "Pathology Director":
+          clinicalFocus = "HISTOLOGIC CORRELATION & FFPE GOLD-STANDARD CELLULAR MARGIN CONCORDANCE";
+          break;
+        case "Diagnostic Radiologist":
+          clinicalFocus = "ULTRASOUND BI-RADS 3/4 STRATIFICATION & REAL-TIME BIO-IMPEDANCE FLUX";
+          break;
+        case "Hospital Procurement":
+          clinicalFocus = "VALUE ANALYSIS COMMITTEE DOSSIER & OR OPERATIONAL EFFICIENCY IMPACT";
+          complianceRef = "HOD VALUE ASSESSMENT & REGULATORY PRE-MARKET EXEMPTION FILE";
+          break;
+      }
+
+      const manifestText = [
+        "=================================================================",
+        `COOSA TECHNOLOGIES \u2014 CLINICAL EVALUATION DOSSIER [${protocolCode}]`,
+        "=================================================================",
+        `TIMESTAMP          : ${nowUTC}`,
+        `INVESTIGATOR       : ${payload.fullName || "Not Specified"}`,
+        `INSTITUTION        : ${payload.institution || "Not Specified"}`,
+        `CLINICAL SPECIALTY : ${payload.role || "Surgical Oncology"}`,
+        `CONTACT VECTOR     : ${payload.email || "Not Specified"}`,
+        "-----------------------------------------------------------------",
+        `TARGET FOCUS       : ${clinicalFocus}`,
+        `INTENDED USE       : ${payload.objective || "Margin Concordance Verification"}`,
+        `REGULATORY CLASS   : ${complianceRef}`,
+        "-----------------------------------------------------------------",
+        "STATUS: CONFIDENTIAL CLINICAL INVESTIGATION BRIEFING",
+        "CAUTION: Investigational Medical Device. Limited by Applicable Law",
+        "to Investigational Evaluation. Not for Diagnostic Use.",
+        "================================================================="
+      ].join("\n");
+
+      if (dossierView) dossierView.value = manifestText;
+
+      if (mailtoBtn) {
+        const mailSubject = encodeURIComponent(`Clinical Evaluation Protocol [${protocolCode}]`);
+        const mailBody = encodeURIComponent(manifestText);
+        mailtoBtn.href = `mailto:contact@coosa.in?subject=${mailSubject}&body=${mailBody}`;
+      }
+
+      // Asynchronous dispatch with non-blocking resilience
+      try {
+        fetch("/api/evaluation-request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...payload, protocolCode, timestamp: nowUTC })
+        }).catch(() => console.info("Terminal offline dispatch logged."));
+      } catch (_) {}
+
+      // Reveal Terminal Modal
+      if (modal) {
+        modal.classList.add("is-visible", "open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+      }
+    });
   }
 
   /* ==========================================================================
@@ -798,5 +929,6 @@
     new ModalController();
     new LeadCaptureController("clinicalLeadForm");
     initHeaderCompaction();
+    initTerminalEvaluationEngine();
   });
 })();
