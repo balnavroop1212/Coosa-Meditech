@@ -16,36 +16,47 @@
       this.sections = Array.from(document.querySelectorAll("section[data-section]"));
       this.isProgrammaticScroll = false;
       this.scrollTimeout = null;
-      this.activeSectionId = "hero";
+      this.activeSectionId = "home";
 
       this.init();
     }
 
     init() {
       if (!this.header || this.navLinks.length === 0 || this.sections.length === 0) return;
+      this.syncHeaderHeight();
       this.bindClickHandlers();
       this.initScrollSpy();
       this.bindHistoryHandlers();
     }
 
+    syncHeaderHeight() {
+      const update = () => {
+        const headerHeight = this.header.offsetHeight;
+        document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
+        const hero = document.getElementById("home");
+        if (hero) hero.style.paddingTop = `${headerHeight + 40}px`;
+      };
+      update();
+      if ("ResizeObserver" in window) {
+        this.headerObserver = new ResizeObserver(update);
+        this.headerObserver.observe(this.header);
+      } else {
+        window.addEventListener("resize", update, { passive: true });
+      }
+    }
+
     bindClickHandlers() {
-      this.navLinks.forEach((link) => {
+      const anchorLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
+      anchorLinks.forEach((link) => {
         link.addEventListener("click", (event) => {
-          event.preventDefault();
-          const targetId = link.getAttribute("data-target");
+          const targetId = link.getAttribute("data-target") || link.getAttribute("href").slice(1);
           const targetSection = document.getElementById(targetId);
           if (!targetSection) return;
 
+          event.preventDefault();
           this.isProgrammaticScroll = true;
-          this.setActiveTab(targetId);
-
-          const headerHeight = this.header.offsetHeight || 72;
-          const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
-          });
+          if (this.sections.some((section) => section.id === targetId)) this.setActiveTab(targetId);
+          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
 
           if (window.location.hash !== `#${targetId}`) {
             history.pushState(null, "", `#${targetId}`);
@@ -60,29 +71,31 @@
     }
 
     initScrollSpy() {
-      const headerHeight = this.header.offsetHeight || 72;
       const observerOptions = {
         root: null,
-        rootMargin: `-${headerHeight}px 0px -50% 0px`,
+        rootMargin: "-25% 0px -65% 0px",
         threshold: 0
       };
+
+      let historyThrottleTimer = null;
 
       const observer = new IntersectionObserver((entries) => {
         if (this.isProgrammaticScroll) return;
 
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const currentId = entry.target.getAttribute("data-section");
-            if (currentId && currentId !== this.activeSectionId) {
-              this.activeSectionId = currentId;
-              this.setActiveTab(currentId);
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const currentId = visibleSections[0]?.target.getAttribute("data-section");
+        if (!currentId || currentId === this.activeSectionId) return;
+        this.activeSectionId = currentId;
+        this.setActiveTab(currentId);
 
-              if (window.location.hash !== `#${currentId}`) {
-                history.replaceState(null, "", `#${currentId}`);
-              }
-            }
-          }
-        });
+        if (window.location.hash !== `#${currentId}`) {
+          if (historyThrottleTimer) clearTimeout(historyThrottleTimer);
+          historyThrottleTimer = setTimeout(() => {
+            history.replaceState(null, "", `#${currentId}`);
+          }, 320);
+        }
       }, observerOptions);
 
       this.sections.forEach((section) => observer.observe(section));
@@ -102,15 +115,10 @@
 
     bindHistoryHandlers() {
       window.addEventListener("popstate", () => {
-        const hashTarget = window.location.hash.replace("#", "") || "hero";
+        const hashTarget = window.location.hash.replace("#", "") || "home";
         const sectionEl = document.getElementById(hashTarget);
         if (sectionEl) {
-          const headerHeight = this.header.offsetHeight || 72;
-          const targetPos = sectionEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          window.scrollTo({
-            top: targetPos,
-            behavior: "smooth"
-          });
+          sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
           this.setActiveTab(hashTarget);
         }
       });
@@ -183,7 +191,7 @@
           pills: [
             "Modality: BDS Probe",
             "Imaging: Ultrasound Tracking",
-            "Accuracy: 90.0% (n=138)"
+            "Clinical evaluation: active"
           ],
           hudVal: "IMPEDANCE: 42.8 kΩ",
           hudSub: "BI-RADS 3 CONCORDANCE VERIFIED"
@@ -205,8 +213,8 @@
           heading: "Real-Time Cavity Margin & Lymph Node Scan (BCD)",
           text: "The surgeon directly sweeps the Breast Cancer Detector (BCD) probe along internal cavity surfaces and axillary lymph nodes. The catalytic micro-sensor array detects metabolic ROS excretion within 15 seconds, identifying positive margins before wound closure.",
           pills: [
-            "Sensitivity: 97.0%",
-            "Selectivity: 94.0%",
+            "Signal: Catalytic ROS",
+            "Target: Cavity & Nodes",
             "Latency: < 15 Seconds"
           ],
           hudVal: "ROS RELEASE: 0.14 µM (CLEAR)",
@@ -217,11 +225,11 @@
           heading: "Definitive Formalin-Fixed Paraffin-Embedded (FFPE) Pathology",
           text: "Because Coosa's bio-electronic sensing causes zero tissue damage, the entire excised tumor specimen is preserved intact for gold-standard FFPE histology, eliminating frozen-section artifacts.",
           pills: [
-            "Preservation: 100% Non-Destructive",
+            "Preservation: Non-Destructive",
             "Standard: FFPE Histology",
-            "Re-Excision Drop: ~30%"
+            "Correlation: Pathology Ready"
           ],
-          hudVal: "PATHOLOGY CORRELATION: 100%",
+          hudVal: "PATHOLOGY CORRELATION: READY",
           hudSub: "MARGIN CONCURRENCE ESTABLISHED"
         }
       };
@@ -278,7 +286,10 @@
       this.modalBadge = document.getElementById("modalBadge");
       this.modalTitle = document.getElementById("modalTitle");
       this.modalBody = document.getElementById("modalBody");
+      this.dossierModal = document.getElementById("clinicalDossierModal");
       this.inspectBtns = Array.from(document.querySelectorAll(".btn-inspect"));
+      this.lastActiveElement = null;
+      this.handleKeyDown = this.handleKeyDown.bind(this);
 
       this.specSheets = {
         bds: {
@@ -290,12 +301,12 @@
             </p>
             <div class="modal-grid">
               <div class="modal-data-point">
-                <span class="modal-data-label">Clinical Accuracy</span>
-                <span class="modal-data-val">90.0% (n=138 Masses)</span>
+                <span class="modal-data-label">Clinical status</span>
+                <span class="modal-data-val">Active evaluation</span>
               </div>
               <div class="modal-data-point">
-                <span class="modal-data-label">Sensitivity in Dense Tissue</span>
-                <span class="modal-data-val">95.0%</span>
+                <span class="modal-data-label">Core capability</span>
+                <span class="modal-data-val">Impedance profiling</span>
               </div>
               <div class="modal-data-point">
                 <span class="modal-data-label">Guidance Frequency</span>
@@ -307,7 +318,7 @@
               </div>
             </div>
             <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-              Regulatory clearance pathway: ISO 13485 compliant. Tissue preservation rate: 100% non-destructive.
+              Regulatory clearance pathway: ISO 13485 quality-system alignment. Tissue architecture is preserved for standard pathology.
             </p>
           `
         },
@@ -320,16 +331,16 @@
             </p>
             <div class="modal-grid">
               <div class="modal-data-point">
-                <span class="modal-data-label">Cavity Margin Sensitivity</span>
-                <span class="modal-data-val">97.0%</span>
+                <span class="modal-data-label">Cavity signal</span>
+                <span class="modal-data-val">Catalytic ROS telemetry</span>
               </div>
               <div class="modal-data-point">
-                <span class="modal-data-label">Cavity Margin Selectivity</span>
-                <span class="modal-data-val">94.0%</span>
+                <span class="modal-data-label">Operating mode</span>
+                <span class="modal-data-val">Real-time interrogation</span>
               </div>
               <div class="modal-data-point">
-                <span class="modal-data-label">Axillary Nodal Sensitivity</span>
-                <span class="modal-data-val">91.0%</span>
+                <span class="modal-data-label">Clinical target</span>
+                <span class="modal-data-val">Cavity and axillary nodes</span>
               </div>
               <div class="modal-data-point">
                 <span class="modal-data-label">Sampling Depth</span>
@@ -337,7 +348,7 @@
               </div>
             </div>
             <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-              Reduces positive post-surgical cavity margins by ~30%. Sampling cycle finishes in under 15 seconds. Protected by granted US Patents.
+              Sampling cycle finishes in under 15 seconds. The sterile probe architecture supports tissue-preserving workflow integration and is protected by granted US patents.
             </p>
           `
         }
@@ -347,12 +358,12 @@
     }
 
     init() {
-      if (!this.modalBackdrop) return;
+      if (!this.modalBackdrop && !this.dossierModal) return;
 
       this.inspectBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
           const type = btn.getAttribute("data-modal");
-          this.openModal(type);
+          this.openModal(type, btn);
         });
       });
 
@@ -360,22 +371,80 @@
         this.modalCloseBtn.addEventListener("click", () => this.closeModal());
       }
 
-      this.modalBackdrop.addEventListener("click", (e) => {
-        if (e.target === this.modalBackdrop) {
-          this.closeModal();
-        }
-      });
+      if (this.modalBackdrop) {
+        this.modalBackdrop.addEventListener("click", (e) => {
+          if (e.target === this.modalBackdrop) {
+            this.closeModal();
+          }
+        });
+      }
 
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && this.modalBackdrop.classList.contains("open")) {
-          this.closeModal();
+      if (this.dossierModal) {
+        const dossierClose = this.dossierModal.querySelector(".modal-close-btn, [data-close]");
+        if (dossierClose) {
+          dossierClose.addEventListener("click", () => this.closeModal(this.dossierModal));
         }
-      });
+        this.dossierModal.addEventListener("click", (e) => {
+          if (e.target === this.dossierModal) {
+            this.closeModal(this.dossierModal);
+          }
+        });
+      }
+
+      window.addEventListener("keydown", this.handleKeyDown);
     }
 
-    openModal(type) {
+    getActiveModal() {
+      if (this.modalBackdrop && this.modalBackdrop.classList.contains("open")) {
+        return this.modalBackdrop;
+      }
+      if (this.dossierModal && this.dossierModal.classList.contains("open")) {
+        return this.dossierModal;
+      }
+      return null;
+    }
+
+    handleKeyDown(e) {
+      const activeModal = this.getActiveModal();
+      if (!activeModal) return;
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        this.closeModal(activeModal);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        const focusables = Array.from(activeModal.querySelectorAll(focusableSelectors))
+          .filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null);
+
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const firstElement = focusables[0];
+        const lastElement = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement || document.activeElement === activeModal) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    }
+
+    openModal(type, triggerElement) {
+      this.lastActiveElement = triggerElement || document.activeElement;
       const data = this.specSheets[type];
-      if (!data) return;
+      if (!data || !this.modalBackdrop) return;
 
       if (this.modalBadge) this.modalBadge.textContent = data.badge;
       if (this.modalTitle) this.modalTitle.textContent = data.title;
@@ -384,12 +453,28 @@
       this.modalBackdrop.classList.add("open");
       this.modalBackdrop.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+
+      // Shift focus to the modal's primary close button
+      if (this.modalCloseBtn) {
+        setTimeout(() => {
+          this.modalCloseBtn.focus();
+        }, 50);
+      }
     }
 
-    closeModal() {
-      this.modalBackdrop.classList.remove("open");
-      this.modalBackdrop.setAttribute("aria-hidden", "true");
+    closeModal(modalEl) {
+      const target = modalEl || this.modalBackdrop;
+      if (target) {
+        target.classList.remove("open");
+        target.setAttribute("aria-hidden", "true");
+      }
       document.body.style.overflow = "";
+
+      // Restore focus to cached trigger element
+      if (this.lastActiveElement && typeof this.lastActiveElement.focus === "function") {
+        this.lastActiveElement.focus();
+        this.lastActiveElement = null;
+      }
     }
   }
 
@@ -516,10 +601,11 @@
     }
 
     saveToStorage() {
+      const sanitize = (str) => String(str || "").replace(/[<>"'&]/g, "").trim().slice(0, 120);
       const formData = new FormData(this.form);
       const data = {};
       formData.forEach((value, key) => {
-        data[key] = value;
+        data[key] = sanitize(value);
       });
       try {
         localStorage.setItem(this.storageKey, JSON.stringify(data));
@@ -535,14 +621,15 @@
         const data = JSON.parse(stored);
 
         Object.keys(data).forEach((key) => {
-          const field = this.form.querySelector(`[name="${key}"]`);
+          const field = this.form.elements[key];
           if (!field) return;
 
-          if (field.type === "radio") {
-            const radioOption = this.form.querySelector(`[name="${key}"][value="${data[key]}"]`);
-            if (radioOption) radioOption.checked = true;
+          if (field instanceof RadioNodeList || (field.length && field[0]?.type === "radio")) {
+            field.value = String(data[key] || "");
+          } else if (field.type === "radio") {
+            field.checked = (field.value === data[key]);
           } else {
-            field.value = data[key];
+            field.value = String(data[key] || "");
           }
         });
       } catch (e) {
@@ -550,160 +637,113 @@
       }
     }
 
-    handleSubmit() {
+    async handleSubmit() {
       if (!this.validateStep(3)) return;
+
+      const sanitize = (str) => String(str || "").replace(/[<>"'&]/g, "").trim().slice(0, 120);
 
       const formData = new FormData(this.form);
       const data = {};
       formData.forEach((value, key) => {
-        data[key] = value;
+        data[key] = sanitize(value);
       });
 
-      // Format institutional clinical payload
-      const subject = encodeURIComponent(
-        `Clinical Demonstration Request: ${data.institution || "Medical Institution"}`
-      );
-      const bodyContent = `
-COOSA TECHNOLOGIES CLINICAL DEMONSTRATION REQUEST
---------------------------------------------------
-Clinical Specialization: ${data.clinicalRole || "Not Specified"}
-Medical Institution:     ${data.institution || "Not Specified"}
-Annual Lumpectomy Volume:${data.annualVolume || "Not Specified"}
-Lead Clinician:          ${data.fullName || "Not Specified"}
-Institutional Email:     ${data.email || "Not Specified"}
-Submission Timestamp:    ${new Date().toISOString()}
+      const timestamp = new Date().toISOString();
+      const formattedDate = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
 
-Distribution Routing: Aadvik Hospicare Institutional Desk
---------------------------------------------------
-`.trim();
+      const dossierText = [
+        "==================================================",
+        "COOSA TECHNOLOGIES — INSTITUTIONAL CLINICAL DOSSIER",
+        "Confidential Evaluation & Pre-Market Briefing Request",
+        "==================================================",
+        `CLINICAL SPECIALTY:       ${data.clinicalRole || "Not Specified"}`,
+        `MEDICAL INSTITUTION:     ${data.institution || "Not Specified"}`,
+        `ANNUAL PROCEDURE VOLUME: ${data.annualVolume || "Not Specified"}`,
+        `LEAD CLINICIAN:          ${data.fullName || "Not Specified"}`,
+        `INSTITUTIONAL EMAIL:     ${data.email || "Not Specified"}`,
+        `SUBMISSION TIMESTAMP:    ${timestamp}`,
+        `REGULATORY STATUS:       Investigational Device (ISO 13485 Track)`,
+        `DISTRIBUTION PARTNER:    Aadvik Hospicare Institutional Desk`,
+        "==================================================",
+        "Requested Follow-Up: On-site operating-suite clinical demonstration",
+        "and technical safety dossier package."
+      ].join("\n");
 
-      const mailtoLink = `mailto:contact@coosa.in?subject=${subject}&body=${encodeURIComponent(bodyContent)}`;
+      // Non-blocking asynchronous dispatch
+      try {
+        if (typeof fetch === "function") {
+          fetch("/api/evaluation-request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...data, timestamp, dossier: dossierText })
+          }).catch(() => {
+            // Graceful fallback for static prototypes / offline development
+          });
+        }
+      } catch (e) {}
 
-      // Clear cached draft
+      // Clear draft storage
       try {
         localStorage.removeItem(this.storageKey);
       } catch (e) {}
 
-      // Open email client
-      window.location.href = mailtoLink;
-
-      // Show success confirmation
+      // Display Institutional Clinical Briefing Dossier
       this.form.style.display = "none";
       if (this.successBanner) {
         this.successBanner.style.display = "block";
-      }
-    }
-  }
+        const dossierPre = document.getElementById("dossierContent");
+        const dossierTime = document.getElementById("dossierTimestamp");
+        const copyBtn = document.getElementById("btnCopyDossier");
+        const copyLabel = document.getElementById("copyDossierLabel");
+        const manualMail = document.getElementById("manualMailtoLink");
 
-  class RndScrollyCanvas {
-    constructor() {
-      this.section = document.getElementById("bio-energetics-scrolly");
-      this.canvas = document.getElementById("scrolly-canvas");
-      if (!this.section || !this.canvas) return;
-      this.ctx = this.canvas.getContext("2d");
-      this.steps = Array.from(this.section.querySelectorAll(".story-step"));
-      this.progressBar = this.section.querySelector(".scrolly-progress span");
-      this.backgroundImage = new Image();
-      this.backgroundImage.src = "assets/frames/BG_frame.webp";
-      this.images = ["assets/frames/frame1.webp", "assets/frames/frame2.webp", "assets/frames/frame3.webp"].map((src) => {
-        const image = new Image();
-        image.src = src;
-        return image;
-      });
-      this.progress = 0;
-      this.targetProgress = 0;
-      this.resize();
-      this.bindEvents();
-      this.backgroundImage.addEventListener("load", () => this.draw());
-      this.images.forEach((image) => image.addEventListener("load", () => this.draw()));
-      this.draw();
-    }
+        if (dossierPre) dossierPre.textContent = dossierText;
+        if (dossierTime) dossierTime.textContent = formattedDate;
 
-    bindEvents() {
-      window.addEventListener("scroll", () => {
-        if (!this.scrollFrame) {
-          this.scrollFrame = requestAnimationFrame(() => {
-            this.updateProgress();
-            this.draw();
-            this.scrollFrame = null;
-          });
+        if (manualMail) {
+          const subject = encodeURIComponent(
+            `Clinical Demonstration Request: ${data.institution || "Medical Institution"}`
+          );
+          manualMail.href = `mailto:contact@coosa.in?subject=${subject}&body=${encodeURIComponent(dossierText)}`;
         }
-      }, { passive: true });
-      window.addEventListener("resize", () => {
-        this.resize();
-        this.draw();
-      });
-      this.updateProgress();
-      this.animate();
-    }
 
-    resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      this.width = this.canvas.clientWidth || window.innerWidth;
-      this.height = this.canvas.clientHeight || window.innerHeight;
-      this.canvas.width = Math.floor(this.width * dpr);
-      this.canvas.height = Math.floor(this.height * dpr);
-      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+        if (copyBtn && copyLabel) {
+          copyBtn.onclick = async () => {
+            try {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(dossierText);
+                copyLabel.textContent = "Copied to Clipboard ✓";
+                copyBtn.classList.add("btn-copied");
+                setTimeout(() => {
+                  copyLabel.textContent = "Copy Dossier to Clipboard";
+                  copyBtn.classList.remove("btn-copied");
+                }, 3000);
+              } else {
+                const ta = document.createElement("textarea");
+                ta.value = dossierText;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                document.body.removeChild(ta);
+                copyLabel.textContent = "Copied to Clipboard ✓";
+                setTimeout(() => {
+                  copyLabel.textContent = "Copy Dossier to Clipboard";
+                }, 3000);
+              }
+            } catch (err) {
+              copyLabel.textContent = "Select & Copy Dossier";
+            }
+          };
+        }
 
-    updateProgress() {
-      const trackStart = this.section.offsetTop;
-      const trackDistance = Math.max(this.section.offsetHeight - window.innerHeight, 1);
-      this.targetProgress = Math.min(Math.max((window.scrollY - trackStart) / trackDistance, 0), 1);
-    }
-
-    updateStory() {
-      const activeIndex = Math.min(Math.floor(this.progress * this.steps.length), this.steps.length - 1);
-      this.steps.forEach((step, index) => step.classList.toggle("active", index === activeIndex));
-      if (this.progressBar) this.progressBar.style.height = `${this.progress * 100}%`;
-    }
-
-    drawImageToCover(image, scale, driftX, alpha) {
-      if (!image || !image.complete || !image.naturalWidth) return;
-      const imageRatio = image.naturalWidth / image.naturalHeight;
-      const screenRatio = this.width / this.height;
-      let drawWidth;
-      let drawHeight;
-
-      if (screenRatio > imageRatio) {
-        drawWidth = this.width * scale;
-        drawHeight = (this.width / imageRatio) * scale;
-      } else {
-        drawWidth = (this.height * imageRatio) * scale;
-        drawHeight = this.height * scale;
+        this.successBanner.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-
-      this.ctx.globalAlpha = alpha;
-      this.ctx.drawImage(
-        image,
-        (this.width - drawWidth) / 2 + driftX,
-        (this.height - drawHeight) / 2,
-        drawWidth,
-        drawHeight
-      );
-    }
-
-    draw() {
-      const ctx = this.ctx;
-      ctx.clearRect(0, 0, this.width, this.height);
-      const segment = this.progress < 0.5 ? this.progress / 0.5 : (this.progress - 0.5) / 0.5;
-      const firstIndex = this.progress < 0.5 ? 0 : 1;
-      const secondIndex = firstIndex + 1;
-      const drift = Math.sin(this.progress * Math.PI) * 15;
-      this.drawImageToCover(this.backgroundImage, 1.02 + this.progress * 0.02, -drift * 0.35, 1);
-      this.drawImageToCover(this.images[firstIndex], 1 + this.progress * 0.05, drift, 1 - segment);
-      this.drawImageToCover(this.images[secondIndex], 1.05 - (1 - this.progress) * 0.05, -drift, segment);
-      ctx.globalAlpha = 1;
-    }
-
-    animate() {
-      this.progress += (this.targetProgress - this.progress) * 0.085;
-      if (Math.abs(this.targetProgress - this.progress) < 0.0005) {
-        this.progress = this.targetProgress;
-      }
-      this.updateStory();
-      this.draw();
-      requestAnimationFrame(() => this.animate());
     }
   }
 
@@ -713,7 +753,6 @@ Distribution Routing: Aadvik Hospicare Institutional Desk
   document.addEventListener("DOMContentLoaded", () => {
     new ScrollMotionController();
     new NavigationController();
-    new RndScrollyCanvas();
     new WorkflowStepper();
     new ModalController();
     new LeadCaptureController("clinicalLeadForm");
