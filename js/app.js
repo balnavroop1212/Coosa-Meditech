@@ -747,6 +747,47 @@
     }
   }
 
+
+  /* ==========================================================================
+     HEADER COMPACTION ENGINE (Step 2) — Zero-Overhead IntersectionObserver
+     Replaces continuous scroll listeners with a single sentinel observation.
+     ========================================================================== */
+  function initHeaderCompaction() {
+    const header = document.getElementById("siteHeader");
+    const sentinel = document.getElementById("headerScrollSentinel");
+    const compliancePill = document.getElementById("navCompliancePillItem");
+
+    if (!header || !sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const isScrolled = !entry.isIntersecting;
+        header.classList.toggle("is-scrolled", isScrolled);
+
+        // Sync A11y: expose pill to screen readers only when visible
+        if (compliancePill) {
+          compliancePill.setAttribute("aria-hidden", String(!isScrolled));
+        }
+
+        // Sync scroll-padding-top so anchors land below compacted header
+        const headerHeight = header.offsetHeight;
+        document.documentElement.style.setProperty(
+          "--header-height",
+          `${headerHeight}px`
+        );
+        document.documentElement.style.scrollPaddingTop = `${headerHeight}px`;
+      },
+      {
+        root: null,
+        // Fire as soon as the sentinel (at y=0) exits the viewport
+        threshold: 0,
+        rootMargin: "0px"
+      }
+    );
+
+    observer.observe(sentinel);
+  }
+
   /* ==========================================================================
      INITIALIZATION ON DOM READY
      ========================================================================== */
@@ -756,5 +797,6 @@
     new WorkflowStepper();
     new ModalController();
     new LeadCaptureController("clinicalLeadForm");
+    initHeaderCompaction();
   });
-})();
+})();

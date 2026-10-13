@@ -27,11 +27,15 @@
 </head>
 <body>
 
+  <!-- IntersectionObserver Scroll Sentinel (1px, zero layout cost) -->
+  <div id="headerScrollSentinel" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;" aria-hidden="true"></div>
+
   <!-- =================================================================
        1. STICKY ENTERPRISE HEADER
        ================================================================= -->
-  <header class="site-header" id="siteHeader">
-    <div class="header-regulatory-bar" role="note" aria-label="Clinical Regulatory Notice">
+  <header class="site-header" id="siteHeader" role="banner">
+    <!-- Top Regulatory Disclosure Bar — collapses out on scroll via JS -->
+    <div class="header-regulatory-bar" id="headerRegulatoryBar" role="note" aria-label="Clinical Regulatory Notice">
       <div class="container header-regulatory-inner">
         <span class="compliance-pulse-dot" aria-hidden="true"></span>
         <span class="compliance-text">CAUTION: Investigational Medical Device. Limited by Law to Investigational Evaluation.</span>
@@ -39,6 +43,8 @@
         <span class="compliance-subtext">ISO 13485 Quality Management Track &bull; Granted US Patents</span>
       </div>
     </div>
+
+    <!-- Primary Nav Bar -->
     <div class="header-container">
       <a href="#home" class="brand-identity" aria-label="Coosa Technologies Home">
         <img 
@@ -72,8 +78,23 @@
           <li><a href="#news" class="nav-link" data-target="news">Latest News</a></li>
           <li><a href="#about-us" class="nav-link" data-target="about-us">About Us</a></li>
           <li><a href="#contact" class="nav-link" data-target="contact">Contact Us</a></li>
+
+          <!-- Inline Compliance Pill — revealed by JS on scroll, hidden by default -->
+          <li class="nav-compliance-pill-item" id="navCompliancePillItem" aria-hidden="true">
+            <span class="nav-compliance-pill">
+              <span class="compliance-pulse-dot" aria-hidden="true"></span>
+              <span>Investigational Device</span>
+              <span class="compliance-divider" aria-hidden="true">&bull;</span>
+              <span>ISO&nbsp;13485</span>
+            </span>
+          </li>
         </ul>
       </nav>
+
+      <!-- Institutional CTA -->
+      <a href="#contact" class="header-cta-btn" data-target="contact" aria-label="Request clinical access">
+        Request Access
+      </a>
     </div>
   </header>
 
